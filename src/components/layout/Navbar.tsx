@@ -33,9 +33,9 @@ export const Navbar: React.FC = () => {
     { name: 'Programs', path: '/programs' },
     { name: 'Six Pillars', path: '/six-pillars' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'CSR & Partnership', path: '/partnership' },
+    { name: 'Partnership', path: '/partnership' },
     { name: 'Volunteer', path: '/volunteer' },
-    { name: 'Annual Report', path: '/annual-report' },
+    { name: 'Report', path: '/annual-report' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -48,50 +48,54 @@ export const Navbar: React.FC = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      style={{ zIndex: 9999 }}
+      className={`fixed top-0 left-0 right-0 glass-nav shadow-sm transition-all duration-300 ${
         scrolled 
-          ? 'glass-nav py-3 shadow-sm' 
-          : 'bg-transparent py-5'
+          ? 'h-16' 
+          : 'h-20'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="bg-brand-forest p-1.5 rounded-lg group-hover:bg-brand-emerald transition-colors duration-300">
-              <Heart className="h-6 w-6 text-brand-beige" fill="currentColor" />
+          <Link to="/" className="flex items-center space-x-2 group shrink-0">
+            <div className="bg-brand-forest p-1.5 rounded-lg group-hover:bg-brand-emerald transition-colors duration-300 flex items-center justify-center">
+              <Heart className="h-5 w-5 text-brand-beige" fill="currentColor" />
             </div>
-            <div>
-              <span className="font-heading text-lg md:text-xl font-bold tracking-tight text-brand-forest group-hover:text-brand-emerald transition-colors duration-300 block leading-tight">
+            <div className="flex flex-col justify-center">
+              <span className="font-heading text-lg font-bold tracking-tight text-brand-forest group-hover:text-brand-emerald transition-colors duration-300 block leading-none">
                 {organizationDetails.shortName}
               </span>
-              <span className="text-[10px] tracking-wider text-brand-forest/70 block uppercase font-body -mt-0.5">
+              <span className="text-[10px] tracking-wider text-brand-forest/70 block uppercase font-body mt-0.5 leading-none">
                 Foundation
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center justify-between flex-1 mx-10 max-w-4xl h-full">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative py-2 text-xs xl:text-sm font-medium tracking-wide uppercase transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-emerald after:origin-center after:transition-transform after:duration-300 ${activeLinkStyle(
+                className={`relative flex items-center h-full text-[11px] xl:text-xs font-semibold tracking-wider uppercase transition-colors duration-300 whitespace-nowrap px-1 xl:px-2 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-emerald after:origin-center after:transition-transform after:duration-300 ${activeLinkStyle(
                   link.path
                 )}`}
               >
                 {link.name}
               </Link>
             ))}
-            
+          </nav>
+
+          {/* Partner Us Button on the right */}
+          <div className="hidden lg:flex items-center shrink-0 h-full">
             <Link
               to="/partnership"
-              className="bg-brand-forest text-brand-beige hover:bg-brand-emerald hover:text-white px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 hover:shadow-md active:scale-95"
+              className="bg-brand-forest text-brand-beige hover:bg-brand-emerald hover:text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-md active:scale-95 whitespace-nowrap"
             >
               Partner Us
             </Link>
-          </nav>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <div className="flex lg:hidden items-center">
@@ -114,7 +118,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-brand-warmwhite/98 border-t border-brand-forest/5 shadow-inner"
+            className="lg:hidden bg-brand-warmwhite/98 border-t border-brand-forest/5 shadow-inner absolute top-full left-0 right-0 w-full"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navLinks.map((link) => (
