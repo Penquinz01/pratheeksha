@@ -1,0 +1,148 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { Heart, Grid, Home, BookOpen, HeartPulse, ShieldAlert } from 'lucide-react';
+import { SEO } from '../components/common/SEO';
+import { galleryData } from '../data/content';
+
+import 'react-photo-view/dist/react-photo-view.css';
+
+// Rich Unsplash images representing actual NGO works for premium visual presentation
+const galleryImages: Record<string, string> = {
+  g1: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80", // brick laying/housing
+  g2: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80", // kids school bags
+  g3: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80", // doctor medical checkup
+  g4: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80", // volunteer loading rations
+  g5: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80", // children studying/tutoring
+  g6: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=800&q=80", // rural home/housing
+  g7: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80", // woman sewing/tailoring
+  g8: "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?auto=format&fit=crop&w=800&q=80"  // kids joy/play
+};
+
+export const Gallery: React.FC = () => {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const categories = [
+    { id: 'all', name: 'All Photos', icon: <Grid className="h-4 w-4" /> },
+    { id: 'housing', name: 'Housing', icon: <Home className="h-4 w-4" /> },
+    { id: 'education', name: 'Education', icon: <BookOpen className="h-4 w-4" /> },
+    { id: 'healthcare', name: 'Healthcare', icon: <HeartPulse className="h-4 w-4" /> },
+    { id: 'community', name: 'Community Care', icon: <ShieldAlert className="h-4 w-4" /> }
+  ];
+
+  const filteredData = activeFilter === 'all'
+    ? galleryData
+    : galleryData.filter(item => item.category === activeFilter);
+
+  return (
+    <>
+      <SEO title="Photo Gallery - Transparency in Action" />
+
+      {/* Hero Header */}
+      <section className="bg-brand-forest text-brand-beige py-24 md:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10">
+          <div className="absolute bottom-10 right-10 w-80 h-80 bg-brand-emerald rounded-full filter blur-[120px]" />
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
+          <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+            Visual Transparency
+          </span>
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight">
+            Our Work in Photos
+          </h1>
+          <p className="font-body text-sm sm:text-base md:text-lg text-brand-beige/85 max-w-2xl mx-auto leading-relaxed">
+            Real photos capturing house handovers, medical relief drives, educational mentorship, and vocational training across Wayanad.
+          </p>
+        </div>
+      </section>
+
+      {/* Filter Tabs */}
+      <section className="py-12 bg-brand-beige border-b border-brand-forest/5 sticky top-[72px] z-30 shadow-sm glass-nav">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
+                className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 active:scale-95 ${
+                  activeFilter === cat.id
+                    ? 'bg-brand-forest text-brand-beige shadow-md'
+                    : 'bg-white text-brand-forest hover:bg-brand-forest/5 border border-brand-forest/5'
+                }`}
+              >
+                {cat.icon}
+                <span>{cat.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Masonry-like Grid + PhotoProvider Lightbox */}
+      <section className="py-20 bg-brand-warmwhite min-h-[50vh]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <PhotoProvider
+            maskOpacity={0.9}
+            loadingElement={<div className="animate-spin rounded-full h-8 w-8 border-t-2 border-brand-emerald" />}
+          >
+            <motion.div 
+              layout
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredData.map((item) => {
+                  const imageSrc = galleryImages[item.id] || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80";
+
+                  return (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.4 }}
+                      key={item.id}
+                      className="group cursor-pointer relative overflow-hidden rounded-2xl shadow-sm border border-brand-forest/5 bg-white aspect-[4/3]"
+                    >
+                      <PhotoView src={imageSrc}>
+                        <div className="w-full h-full relative overflow-hidden">
+                          {/* Image */}
+                          <img
+                            src={imageSrc}
+                            alt={item.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-brand-forest/90 via-brand-forest/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span className="text-[10px] text-brand-emerald font-bold font-body uppercase tracking-wider mb-1">
+                              {item.category}
+                            </span>
+                            <h3 className="font-heading text-base font-bold text-white leading-tight">
+                              {item.title}
+                            </h3>
+                            <p className="text-white/80 text-[11px] font-body mt-1 line-clamp-2">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </PhotoView>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
+          </PhotoProvider>
+
+          {filteredData.length === 0 && (
+            <div className="text-center py-20">
+              <Heart className="h-12 w-12 text-brand-forest/20 mx-auto mb-4" />
+              <p className="font-heading text-lg font-bold text-brand-forest/60">No photos in this category yet</p>
+              <p className="font-body text-xs text-brand-forest/40">Check back soon as we update our reports weekly.</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  );
+};
