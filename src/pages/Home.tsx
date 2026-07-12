@@ -1,14 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay, Navigation } from 'swiper/modules';
 import { Heart, ArrowRight, Home as HomeIcon, ChevronRight } from 'lucide-react';
-
-// Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
 import { SEO } from '../components/common/SEO';
 import { PlaceholderImage } from '../components/common/PlaceholderImage';
@@ -18,8 +11,6 @@ import {
   howWeWorkSteps, 
   sixPillars, 
   housingHighlight, 
-  testimonials, 
-  csrCards, 
   galleryData 
 } from '../data/content';
 
@@ -334,116 +325,9 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. Testimonials Section (Swiper Carousel) */}
-      <section className="py-24 bg-brand-warmwhite overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block mb-2">
-              Stories of Impact
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
-              Voices of Hope
-            </h2>
-          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1 }}
-          >
-            <Swiper
-              modules={[Pagination, Autoplay, Navigation]}
-              spaceBetween={30}
-              slidesPerView={1}
-              loop={true}
-              autoplay={{ delay: 6000, disableOnInteraction: false }}
-              pagination={{ clickable: true }}
-              navigation={true}
-              className="pb-16"
-            >
-              {testimonials.map((t) => (
-                <SwiperSlide key={t.id}>
-                  <div className="text-center px-4 md:px-12 space-y-6">
-                    <span className="text-brand-emerald font-heading text-6xl block leading-none select-none">
-                      &ldquo;
-                    </span>
-                    <p className="font-heading text-lg sm:text-2xl text-brand-forest/90 leading-relaxed italic">
-                      {t.quote}
-                    </p>
-                    <div className="pt-4">
-                      <h4 className="font-heading text-base font-bold text-brand-forest">
-                        {t.name}
-                      </h4>
-                      <p className="font-body text-xs text-brand-forest/60">
-                        {t.role} &bull; {t.location}
-                      </p>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* 8. CSR Partnership & CSR (Brief Preview) */}
-      <section className="py-24 bg-brand-beige">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block mb-2">
-              Corporate & Partner Alliances
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
-              Ways to Partner
-            </h2>
-            <p className="font-body text-sm text-brand-forest/75 mt-4">
-              We coordinate transparent Corporate Social Responsibility (CSR) sponsorships with real-time audit parameters, helping your organization create visible, lasting social impacts.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {csrCards.slice(0, 3).map((card) => (
-              <div 
-                key={card.id}
-                className="bg-white p-8 rounded-2xl border border-brand-forest/5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
-              >
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start">
-                    <span className="text-xs font-bold text-brand-emerald font-body uppercase tracking-wider">
-                      {card.tagline}
-                    </span>
-                  </div>
-                  <h3 className="font-heading text-xl font-bold text-brand-forest">
-                    {card.title}
-                  </h3>
-                  <p className="font-body text-sm text-brand-forest/75 leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-                <div className="pt-6">
-                  <Link
-                    to="/partnership"
-                    className="w-full text-center block bg-brand-forest hover:bg-brand-emerald text-brand-beige hover:text-white py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300"
-                  >
-                    Partner Now
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              to="/partnership"
-              className="inline-flex items-center space-x-2 text-brand-emerald hover:text-brand-forest font-semibold uppercase tracking-wider text-sm transition-colors group"
-            >
-              <span>View All 6 Partnership Missions</span>
-              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* 9. Volunteer CTA Section */}
       <section className="py-24 bg-brand-forest text-brand-beige relative overflow-hidden">
