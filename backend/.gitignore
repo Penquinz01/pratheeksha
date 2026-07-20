@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+Web_DB_copy.accdb
+*.accdb.lock
