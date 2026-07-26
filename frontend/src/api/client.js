@@ -10,8 +10,11 @@ export function setToken(token) {
   else localStorage.removeItem("token");
 }
 
-async function handle(res) {
-  if (res.status === 401) {
+// `redirectOn401` is off for the auth endpoints: there a 401 means "wrong
+// credentials", not an expired session, so the server's message must reach
+// the form instead of bouncing the user through a reload.
+async function handle(res, { redirectOn401 = true } = {}) {
+  if (res.status === 401 && redirectOn401) {
     setToken(null);
     window.location.href = "/login";
     throw new Error("Session expired");
@@ -48,7 +51,7 @@ export async function login(email, password) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ username: email, password }),
   });
-  const data = await handle(res);
+  const data = await handle(res, { redirectOn401: false });
   setToken(data.access_token);
   return data;
 }
@@ -59,5 +62,5 @@ export async function register(email, username, password) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, username, password }),
   });
-  return handle(res);
+  return handle(res, { redirectOn401: false });
 }
