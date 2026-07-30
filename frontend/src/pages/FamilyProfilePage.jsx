@@ -14,6 +14,8 @@ export default function FamilyProfilePage() {
   const navigate = useNavigate();
   const [record, setRecord] = useState(null);
   const [error, setError] = useState(null);
+  const [approving, setApproving] = useState(false);
+  const [actionError, setActionError] = useState(null);
 
   const load = useCallback(async () => {
     if (isNew) { setRecord(null); return; }
@@ -36,6 +38,21 @@ export default function FamilyProfilePage() {
     }
   };
 
+  // Approval is a one-field, frequently-used action, so it saves immediately
+  // instead of requiring a trip through the full 51-field edit form. The
+  // `approved` field stays in the Status section for bulk edits.
+  const setApproval = async (value) => {
+    setApproving(true);
+    setActionError(null);
+    try {
+      setRecord(await api(`${CONTACT_MASTER.path}${prfmlId}`, { method: "PATCH", body: { approved: value } }));
+    } catch (err) {
+      setActionError(err.message);
+    } finally {
+      setApproving(false);
+    }
+  };
+
   const remove = async () => {
     if (!window.confirm(`Delete family "${record?.fullname ?? prfmlId}"? Any dependents/tracking records for this family will remain but become unlinked.`)) return;
     await api(`${CONTACT_MASTER.path}${prfmlId}`, { method: "DELETE" });
@@ -54,9 +71,22 @@ export default function FamilyProfilePage() {
     { label: "Panchayath", value: record.panchayath },
   ];
 
+  const isApproved = (record?.approved ?? "").trim().toLowerCase() === "yes";
+  const approveAction = isNew ? null : isApproved ? (
+    <button type="button" className="secondary" disabled={approving} onClick={() => setApproval("No")}>
+      {approving ? "Saving…" : "Revoke approval"}
+    </button>
+  ) : (
+    <button type="button" className="approve" disabled={approving} onClick={() => setApproval("Yes")}>
+      {approving ? "Saving…" : "Approve family"}
+    </button>
+  );
+
   return (
     <div>
       <Link to="/families" className="back-link">← Back to families</Link>
+
+      {actionError && <p className="error">{actionError}</p>}
 
       <ProfileCard
         table={CONTACT_MASTER}
@@ -66,6 +96,7 @@ export default function FamilyProfilePage() {
         subtitle={isNew ? null : [record.known_as, record.address].filter(Boolean).join(" · ")}
         meta={meta}
         avatarSource={isNew ? "" : record.fullname}
+        extraActions={approveAction}
         onSave={save}
         onDelete={isNew ? null : remove}
       />

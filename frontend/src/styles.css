@@ -81,6 +81,10 @@ button.link:hover:not(:disabled) { background: var(--accent-soft); text-decorati
 button.link.danger { color: var(--danger); }
 button.link.danger:hover:not(:disabled) { background: var(--danger-soft); }
 
+button.approve { background: #039855; }
+button.approve:hover:not(:disabled) { background: #027a48; }
+button.approve:focus-visible { box-shadow: 0 0 0 3px rgba(3, 152, 85, 0.2); }
+
 button.secondary.danger { color: var(--danger); border-color: #fda29b; }
 button.secondary.danger:hover:not(:disabled) { background: var(--danger-soft); border-color: var(--danger); }
 

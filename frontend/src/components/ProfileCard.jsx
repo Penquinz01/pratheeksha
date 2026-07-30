@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FieldInput from "./FieldInput";
 import Badge from "./Badge";
 import { initials } from "../lib/text";
+
+function valuesFrom(table, record) {
+  const v = {};
+  for (const section of table.sections) {
+    for (const fld of section.fields) v[fld.name] = record?.[fld.name] ?? "";
+  }
+  return v;
+}
 
 // Edit/Save profile form shared by the family and dependent pages. Renders a
 // hero header (avatar, title, at-a-glance meta) followed by one card per field
@@ -15,19 +23,23 @@ export default function ProfileCard({
   subtitle,
   meta = [],
   avatarSource,
+  extraActions,
   onSave,
   onDelete,
 }) {
   const [editing, setEditing] = useState(isNew);
-  const [values, setValues] = useState(() => {
-    const v = {};
-    for (const section of table.sections) {
-      for (const fld of section.fields) v[fld.name] = record?.[fld.name] ?? "";
-    }
-    return v;
-  });
+  const [values, setValues] = useState(() => valuesFrom(table, record));
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
+
+  // Re-seed from the record whenever it changes while not editing. Without
+  // this, a field changed outside the form (the Approve button) would keep its
+  // stale mount-time value here and get written back on the next Save. It also
+  // makes Cancel genuinely discard edits rather than leave them staged.
+  useEffect(() => {
+    if (editing) return;
+    setValues(valuesFrom(table, record));
+  }, [record, table, editing]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -75,6 +87,7 @@ export default function ProfileCard({
           )}
         </div>
         <div className="profile-card-actions">
+          {!editing && extraActions}
           {!isNew && !editing && (
             <button type="button" onClick={() => setEditing(true)}>Edit</button>
           )}
