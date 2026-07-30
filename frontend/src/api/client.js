@@ -45,6 +45,19 @@ export async function api(path, { method = "GET", body, params } = {}) {
   return handle(res);
 }
 
+// The API caps `limit` at 500 (MAX_PAGE_SIZE), so a single request silently
+// truncates once a table outgrows that. Page through until a short batch
+// arrives to get a genuinely complete list.
+export async function fetchAll(path, params = {}) {
+  const PAGE = 500;
+  const all = [];
+  for (let skip = 0; ; skip += PAGE) {
+    const batch = await api(path, { params: { ...params, skip, limit: PAGE } });
+    all.push(...batch);
+    if (batch.length < PAGE) return all;
+  }
+}
+
 export async function login(email, password) {
   const res = await fetch(new URL(BASE + "/auth/login", window.location.origin), {
     method: "POST",

@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import FamilyListPage from "./pages/FamilyListPage";
 import FamilyProfilePage from "./pages/FamilyProfilePage";
 import DependentProfilePage from "./pages/DependentProfilePage";
+import StudentsByGradePage from "./pages/StudentsByGradePage";
 
 function AdminShell() {
   const { logout } = useAuth();
@@ -15,12 +16,14 @@ function AdminShell() {
         <div className="brand">Pratheeksha</div>
         <nav>
           <NavLink to="/families">Families</NavLink>
+          <NavLink to="/students">Students by Grade</NavLink>
         </nav>
         <button className="secondary logout" onClick={logout}>Log out</button>
       </header>
       <main>
         <Routes>
           <Route path="/families" element={<FamilyListPage />} />
+          <Route path="/students" element={<StudentsByGradePage />} />
           <Route path="/families/new" element={<FamilyProfilePage />} />
           <Route path="/families/:prfmlId" element={<FamilyProfilePage />} />
           <Route path="/families/:prfmlId/dependents/:dpid" element={<DependentProfilePage />} />

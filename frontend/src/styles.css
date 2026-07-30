@@ -176,6 +176,31 @@ tr.clickable:hover { background: #f7f9fc; }
 .section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 .section h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.03em; }
 
+/* Students by grade */
+.hint { color: var(--muted); font-size: 13px; margin-bottom: 14px; max-width: 70ch; }
+.inline-check { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
+.inline-check input { padding: 0; }
+
+.grade-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.grade-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: inherit;
+  padding: 8px 12px;
+  min-width: 104px;
+}
+.grade-chip:hover { border-color: var(--accent); }
+.grade-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.grade-chip-label { font-weight: 600; }
+.grade-chip-count { font-size: 12px; opacity: 0.75; }
+
+.result-heading { font-size: 15px; margin-bottom: 10px; }
+.muted-cell { color: var(--muted); font-style: italic; }
+
 /* Tabs */
 .tab-bar { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; flex-wrap: wrap; }
 .tab {

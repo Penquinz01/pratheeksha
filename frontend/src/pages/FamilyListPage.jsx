@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../api/client";
+import { fetchAll } from "../api/client";
 import { CONTACT_MASTER } from "../config/tables";
 
 // The backend only supports exact-match filtering, so search across
@@ -17,7 +17,7 @@ export default function FamilyListPage() {
     setError(null);
     setLoading(true);
     try {
-      setFamilies(await api(CONTACT_MASTER.path, { params: { limit: 500 } }));
+      setFamilies(await fetchAll(CONTACT_MASTER.path));
     } catch (err) {
       setError(err.message);
     } finally {
