@@ -20,4 +20,15 @@ export const OPTIONS = {
   ],
   instType: ["School", "College", "Coaching Centre", "Others"],
   instMedium: ["Malayalam", "English", "Arabic", "Hindi"],
+
+  // Suggestions rather than a fixed list: grades legitimately include course
+  // names the list cannot enumerate. Offering the canonical spellings nudges
+  // new entries towards consistency, which is what the grade grouping in
+  // config/grades.js exists to paper over for the historical data.
+  instGrade: [
+    "LKG", "UKG",
+    "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
+    "+1", "+2",
+    "Diploma", "Degree 1st", "Degree 2nd", "Degree 3rd", "PG 1st", "PG 2nd",
+  ],
 };

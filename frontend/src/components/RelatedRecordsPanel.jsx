@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../api/client";
 import FieldInput, { humanize } from "./FieldInput";
+import { collectErrors } from "../lib/validate";
 
 const LIST_COLUMN_LIMIT = 6;
 
@@ -107,12 +108,23 @@ function RecordForm({ table, initial, onSubmit, onCancel }) {
     return v;
   });
   const [error, setError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const [busy, setBusy] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
-    setBusy(true);
     setError(null);
+
+    const invalid = collectErrors(table.fields, values);
+    if (Object.keys(invalid).length > 0) {
+      setFieldErrors(invalid);
+      const n = Object.keys(invalid).length;
+      setError(`Fix ${n} field${n > 1 ? "s" : ""} before saving.`);
+      return;
+    }
+    setFieldErrors({});
+
+    setBusy(true);
     const payload = {};
     for (const fld of table.fields) {
       const raw = values[fld.name];
@@ -141,7 +153,11 @@ function RecordForm({ table, initial, onSubmit, onCancel }) {
             key={fld.name}
             field={fld}
             value={values[fld.name]}
-            onChange={(v) => setValues((prev) => ({ ...prev, [fld.name]: v }))}
+            error={fieldErrors[fld.name]}
+            onChange={(v) => {
+              setValues((prev) => ({ ...prev, [fld.name]: v }));
+              setFieldErrors((prev) => (fld.name in prev ? { ...prev, [fld.name]: undefined } : prev));
+            }}
           />
         ))}
       </div>

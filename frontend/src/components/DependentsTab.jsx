@@ -6,10 +6,10 @@ import FieldInput from "./FieldInput";
 
 const QUICK_FIELDS = [
   { name: "fullname", label: "Full Name" },
-  { name: "gender", type: "select", optionsKey: "gender" },
+  { name: "gender", type: "enum", optionsKey: "gender" },
   { name: "dob", label: "Date of Birth", type: "date" },
-  { name: "relation", type: "select", optionsKey: "relation" },
-  { name: "edu_status", label: "Edu. Status", type: "select", optionsKey: "eduStatus" },
+  { name: "relation", type: "enum", optionsKey: "relation" },
+  { name: "edu_status", label: "Edu. Status", type: "enum", optionsKey: "eduStatus" },
 ];
 
 // The Dependents tab on a family's profile: a list of that family's

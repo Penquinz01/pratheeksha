@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FieldInput from "./FieldInput";
 import Badge from "./Badge";
 import { initials } from "../lib/text";
+import { collectErrors } from "../lib/validate";
 
 function valuesFrom(table, record) {
   const v = {};
@@ -30,7 +31,17 @@ export default function ProfileCard({
   const [editing, setEditing] = useState(isNew);
   const [values, setValues] = useState(() => valuesFrom(table, record));
   const [error, setError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const [busy, setBusy] = useState(false);
+
+  const allFields = table.sections.flatMap((s) => s.fields);
+
+  const setField = (name, value) => {
+    setValues((prev) => ({ ...prev, [name]: value }));
+    // Clear a field's complaint as soon as it is touched, rather than nagging
+    // while the user is still typing.
+    setFieldErrors((prev) => (name in prev ? { ...prev, [name]: undefined } : prev));
+  };
 
   // Re-seed from the record whenever it changes while not editing. Without
   // this, a field changed outside the form (the Approve button) would keep its
@@ -43,8 +54,18 @@ export default function ProfileCard({
 
   const submit = async (e) => {
     e.preventDefault();
-    setBusy(true);
     setError(null);
+
+    const invalid = collectErrors(allFields, values);
+    if (Object.keys(invalid).length > 0) {
+      setFieldErrors(invalid);
+      const n = Object.keys(invalid).length;
+      setError(`Fix ${n} field${n > 1 ? "s" : ""} before saving.`);
+      return;
+    }
+    setFieldErrors({});
+
+    setBusy(true);
     const payload = {};
     for (const section of table.sections) {
       for (const fld of section.fields) {
@@ -118,7 +139,8 @@ export default function ProfileCard({
                   field={fld}
                   value={values[fld.name]}
                   disabled={!editing}
-                  onChange={(v) => setValues((prev) => ({ ...prev, [fld.name]: v }))}
+                  error={editing ? fieldErrors[fld.name] : undefined}
+                  onChange={(v) => setField(fld.name, v)}
                 />
               ))}
             </div>

@@ -1,5 +1,9 @@
 // Field/section descriptors for every table the API exposes. Field shape:
-// { name, label?, type: "text"|"number"|"date"|"select", optionsKey? }
+// { name, label?, type, optionsKey? } where type is one of
+//   text (default) | number | date | tel
+//   enum   -> real dropdown, for closed sets (gender, relation, category…)
+//   select -> free text with suggestions, where new values are legitimate
+//             (institute names, syllabuses, grades)
 // `label` defaults to a humanized version of `name` when omitted.
 
 function f(name, extra) {
@@ -16,7 +20,7 @@ export const CONTACT_MASTER = {
       fields: [
         f("fullname", { label: "Full Name" }),
         f("known_as"),
-        f("gender", { type: "select", optionsKey: "gender" }),
+        f("gender", { type: "enum", optionsKey: "gender" }),
         f("dob", { label: "Date of Birth", type: "date" }),
         f("address"),
         f("panchayath", { label: "Panchayath" }),
@@ -33,8 +37,8 @@ export const CONTACT_MASTER = {
     {
       title: "Contact & Financial",
       fields: [
-        f("mobile"),
-        f("whatsapp"),
+        f("mobile", { type: "tel" }),
+        f("whatsapp", { type: "tel" }),
         f("gpay", { label: "GPay" }),
         f("occupation"),
         f("salary"),
@@ -59,29 +63,29 @@ export const CONTACT_MASTER = {
     {
       title: "Family",
       fields: [
-        f("religion", { type: "select", optionsKey: "religion" }),
+        f("religion", { type: "enum", optionsKey: "religion" }),
         f("qualification"),
-        f("blood_group", { label: "Blood Group", type: "select", optionsKey: "bloodGroup" }),
-        f("marital_status", { label: "Marital Status", type: "select", optionsKey: "maritalStatus" }),
+        f("blood_group", { label: "Blood Group", type: "enum", optionsKey: "bloodGroup" }),
+        f("marital_status", { label: "Marital Status", type: "enum", optionsKey: "maritalStatus" }),
         f("spouse_name", { label: "Spouse Name" }),
         f("marital_status_discr", { label: "Marital Status (Reason)" }),
         f("father_name", { label: "Father Name" }),
-        f("father_mobile", { label: "Father Mobile" }),
+        f("father_mobile", { label: "Father Mobile", type: "tel" }),
         f("mother_name", { label: "Mother Name" }),
-        f("mother_mobile", { label: "Mother Mobile" }),
+        f("mother_mobile", { label: "Mother Mobile", type: "tel" }),
         f("guard_name", { label: "Guardian Name" }),
-        f("guard_mobile", { label: "Guardian Mobile" }),
+        f("guard_mobile", { label: "Guardian Mobile", type: "tel" }),
       ],
     },
     {
       title: "Status",
       fields: [
-        f("pr_category", { label: "Category", type: "select", optionsKey: "prCategory" }),
+        f("pr_category", { label: "Category", type: "enum", optionsKey: "prCategory" }),
         f("pr_category_old", { label: "Category (Old)" }),
-        f("social_status", { label: "Social Status", type: "select", optionsKey: "socialStatus" }),
-        f("health_status", { label: "Health Status", type: "select", optionsKey: "healthStatus" }),
+        f("social_status", { label: "Social Status", type: "enum", optionsKey: "socialStatus" }),
+        f("health_status", { label: "Health Status", type: "enum", optionsKey: "healthStatus" }),
         f("health_condition", { label: "Health Condition" }),
-        f("approved", { type: "select", optionsKey: "approved" }),
+        f("approved", { type: "enum", optionsKey: "approved" }),
         f("exclusion_reason", { label: "Exclusion Reason" }),
         f("joined_year", { label: "Joined Year" }),
         f("remark"),
@@ -99,9 +103,9 @@ export const DEPENDENT_MASTER = {
       title: "Personal",
       fields: [
         f("fullname", { label: "Full Name" }),
-        f("gender", { type: "select", optionsKey: "gender" }),
+        f("gender", { type: "enum", optionsKey: "gender" }),
         f("dob", { label: "Date of Birth", type: "date" }),
-        f("relation", { type: "select", optionsKey: "relation" }),
+        f("relation", { type: "enum", optionsKey: "relation" }),
         f("ambition"),
         f("hobbies"),
       ],
@@ -109,13 +113,13 @@ export const DEPENDENT_MASTER = {
     {
       title: "School / College",
       fields: [
-        f("edu_status", { label: "Edu. Status", type: "select", optionsKey: "eduStatus" }),
-        f("inst_type", { label: "Type", type: "select", optionsKey: "instType" }),
+        f("edu_status", { label: "Edu. Status", type: "enum", optionsKey: "eduStatus" }),
+        f("inst_type", { label: "Type", type: "enum", optionsKey: "instType" }),
         f("inst_name", { label: "Institute Name" }),
-        f("inst_grade", { label: "Grade" }),
+        f("inst_grade", { label: "Grade", type: "select", optionsKey: "instGrade" }),
         f("inst_division", { label: "Division" }),
         f("inst_syllabus", { label: "Syllabus" }),
-        f("inst_medium", { label: "Medium", type: "select", optionsKey: "instMedium" }),
+        f("inst_medium", { label: "Medium", type: "enum", optionsKey: "instMedium" }),
         f("inst_academic_yr", { label: "Academic Year" }),
         f("trnsp_fee", { label: "Transport Fee", type: "number" }),
         f("fav_subject", { label: "Favourite Subject" }),
@@ -134,14 +138,14 @@ export const DEPENDENT_MASTER = {
     {
       title: "Contact & Health",
       fields: [
-        f("mobile"),
-        f("whatsapp"),
+        f("mobile", { type: "tel" }),
+        f("whatsapp", { type: "tel" }),
         f("occupation"),
         f("salary"),
-        f("blood_group", { label: "Blood Group", type: "select", optionsKey: "bloodGroup" }),
+        f("blood_group", { label: "Blood Group", type: "enum", optionsKey: "bloodGroup" }),
         f("aadhar_no", { label: "Aadhar No." }),
         f("election_id", { label: "Election ID" }),
-        f("marital_status", { label: "Marital Status", type: "select", optionsKey: "maritalStatus" }),
+        f("marital_status", { label: "Marital Status", type: "enum", optionsKey: "maritalStatus" }),
         f("spouse_name", { label: "Spouse Name" }),
         f("marital_status_discr", { label: "Marital Status (Reason)" }),
         f("health_condition", { label: "Health Condition" }),
@@ -261,7 +265,7 @@ export const TRACKERS = {
       f("comm_time", { label: "Time" }),
       f("comm_executive", { label: "Executive" }),
       f("comm_person", { label: "Person" }),
-      f("comm_person_mobile", { label: "Person Mobile" }),
+      f("comm_person_mobile", { label: "Person Mobile", type: "tel" }),
       f("comm_reason", { label: "Reason" }),
       f("comm_outcome", { label: "Outcome" }),
       f("comm_type", { label: "Type" }),
@@ -311,11 +315,11 @@ export const TRACKERS = {
     filterColumn: "dpid",
     fields: [
       f("inst_academic_yr", { label: "Academic Year" }),
-      f("inst_type", { label: "Type", type: "select", optionsKey: "instType" }),
+      f("inst_type", { label: "Type", type: "enum", optionsKey: "instType" }),
       f("inst_name", { label: "Institute Name" }),
-      f("inst_grade", { label: "Grade" }),
+      f("inst_grade", { label: "Grade", type: "select", optionsKey: "instGrade" }),
       f("inst_syllabus", { label: "Syllabus" }),
-      f("inst_medium", { label: "Medium", type: "select", optionsKey: "instMedium" }),
+      f("inst_medium", { label: "Medium", type: "enum", optionsKey: "instMedium" }),
       f("madrasa_academic_yr", { label: "Madrasa Academic Year" }),
       f("madrasa_grade", { label: "Madrasa Grade" }),
       f("madrasa_name", { label: "Madrasa Name" }),
