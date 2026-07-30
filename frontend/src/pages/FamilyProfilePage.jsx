@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/client";
 import { CONTACT_MASTER, FAMILY_TABS, TRACKERS } from "../config/tables";
 import ProfileCard from "../components/ProfileCard";
+import { approvalTone } from "../components/Badge";
 import Tabs from "../components/Tabs";
 import DependentsTab from "../components/DependentsTab";
 import RelatedRecordsPanel from "../components/RelatedRecordsPanel";
@@ -44,15 +45,26 @@ export default function FamilyProfilePage() {
   if (error) return <p className="error">{error}</p>;
   if (!isNew && !record) return <p className="center-note">Loading…</p>;
 
+  const meta = isNew ? [] : [
+    { label: "PID", value: record.idx_id },
+    { label: "Srl. No.", value: record.srl_no },
+    { label: "Category", value: record.pr_category, tone: "neutral" },
+    { label: "Approved", value: record.approved, tone: approvalTone(record.approved) },
+    { label: "Mobile", value: record.mobile },
+    { label: "Panchayath", value: record.panchayath },
+  ];
+
   return (
     <div>
       <Link to="/families" className="back-link">← Back to families</Link>
-      <h2>{isNew ? "New Family" : record.fullname}</h2>
 
       <ProfileCard
         table={CONTACT_MASTER}
         record={record}
         isNew={isNew}
+        title={isNew ? "New Family" : record.fullname}
+        subtitle={isNew ? null : [record.known_as, record.address].filter(Boolean).join(" · ")}
+        meta={meta}
         avatarSource={isNew ? "" : record.fullname}
         onSave={save}
         onDelete={isNew ? null : remove}

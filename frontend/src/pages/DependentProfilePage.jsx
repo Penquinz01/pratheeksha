@@ -38,13 +38,21 @@ export default function DependentProfilePage() {
 
   return (
     <div>
-      <Link to={`/families/${prfmlId}`} className="back-link">← Back to family ({record.prfml_dpid ?? prfmlId})</Link>
-      <h2>{record.fullname}</h2>
+      <Link to={`/families/${prfmlId}`} className="back-link">← Back to family</Link>
 
       <ProfileCard
         table={DEPENDENT_MASTER}
         record={record}
         isNew={false}
+        title={record.fullname}
+        subtitle={[record.relation, record.inst_name].filter(Boolean).join(" · ")}
+        meta={[
+          { label: "Dependent ID", value: record.prfml_dpid },
+          { label: "Grade", value: record.inst_grade },
+          { label: "Edu. Status", value: record.edu_status, tone: "neutral" },
+          { label: "Academic Yr", value: record.inst_academic_yr },
+          { label: "Madrasa", value: record.madrasa_name },
+        ]}
         avatarSource={record.fullname}
         onSave={save}
         onDelete={remove}

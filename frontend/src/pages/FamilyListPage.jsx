@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAll } from "../api/client";
 import { CONTACT_MASTER } from "../config/tables";
+import Badge, { approvalTone } from "../components/Badge";
+import { initials } from "../lib/text";
 
 // The backend only supports exact-match filtering, so search across
 // name/mobile/address/PID is done client-side over the full contact list
@@ -48,7 +50,18 @@ export default function FamilyListPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+        {query && (
+          <button type="button" className="secondary" onClick={() => setQuery("")}>Clear</button>
+        )}
       </div>
+
+      {!loading && (
+        <p className="list-count">
+          {filtered.length === families.length
+            ? `${families.length} families`
+            : `${filtered.length} of ${families.length} families`}
+        </p>
+      )}
 
       {error && <p className="error">{error}</p>}
 
@@ -59,7 +72,7 @@ export default function FamilyListPage() {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Family</th>
                 <th>Mobile</th>
                 <th>Address</th>
                 <th>Category</th>
@@ -69,11 +82,19 @@ export default function FamilyListPage() {
             <tbody>
               {filtered.map((fam) => (
                 <tr key={fam.prfml_id} className="clickable" onClick={() => navigate(`/families/${fam.prfml_id}`)}>
-                  <td>{fam.fullname}</td>
+                  <td className="cell-td">
+                    <div className="cell-primary">
+                      <span className="avatar-placeholder sm">{initials(fam.fullname)}</span>
+                      <span className="cell-text">
+                        <span className="cell-name">{fam.fullname}</span>
+                        {fam.known_as && <span className="cell-sub">{fam.known_as}</span>}
+                      </span>
+                    </div>
+                  </td>
                   <td>{fam.mobile}</td>
                   <td>{fam.address}</td>
-                  <td>{fam.pr_category}</td>
-                  <td>{fam.approved}</td>
+                  <td>{fam.pr_category ? <Badge>{fam.pr_category}</Badge> : ""}</td>
+                  <td>{fam.approved ? <Badge tone={approvalTone(fam.approved)}>{fam.approved}</Badge> : ""}</td>
                 </tr>
               ))}
               {filtered.length === 0 && (
