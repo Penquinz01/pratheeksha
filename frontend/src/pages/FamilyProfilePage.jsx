@@ -8,9 +8,11 @@ import Tabs from "../components/Tabs";
 import DependentsTab from "../components/DependentsTab";
 import RelatedRecordsPanel from "../components/RelatedRecordsPanel";
 
-export default function FamilyProfilePage() {
+// `isNew` is passed by the route rather than inferred from the URL: the
+// /families/new route declares no :prfmlId, so useParams() is empty there and
+// sniffing the param cannot distinguish "new" from a missing id.
+export default function FamilyProfilePage({ isNew = false }) {
   const { prfmlId } = useParams();
-  const isNew = prfmlId === "new";
   const navigate = useNavigate();
   const [record, setRecord] = useState(null);
   const [error, setError] = useState(null);

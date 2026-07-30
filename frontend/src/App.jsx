@@ -24,7 +24,7 @@ function AdminShell() {
         <Routes>
           <Route path="/families" element={<FamilyListPage />} />
           <Route path="/students" element={<StudentsByGradePage />} />
-          <Route path="/families/new" element={<FamilyProfilePage />} />
+          <Route path="/families/new" element={<FamilyProfilePage isNew />} />
           <Route path="/families/:prfmlId" element={<FamilyProfilePage />} />
           <Route path="/families/:prfmlId/dependents/:dpid" element={<DependentProfilePage />} />
           <Route path="*" element={<Navigate to="/families" replace />} />
