@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Quote, Heart } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
+import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { testimonials } from '../data/content';
 
 export const Testimonials: React.FC = () => {
@@ -24,12 +25,10 @@ export const Testimonials: React.FC = () => {
       <SEO title="Voices of Hope - Beneficiary Stories & Testimonials" />
 
       {/* Hero Header */}
-      <section className="bg-brand-forest text-brand-beige py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute top-1/2 left-10 w-80 h-80 bg-brand-emerald rounded-full filter blur-[120px]" />
-        </div>
+      <section className="bg-brand-plum text-brand-beige py-24 md:py-32 relative overflow-hidden">
+        <PlumBackdrop glow="top-left" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+          <span className="text-brand-violet-light font-semibold uppercase tracking-wider text-xs font-body block">
             Beneficiary & Sponsor Stories
           </span>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight">
@@ -44,6 +43,7 @@ export const Testimonials: React.FC = () => {
       {/* Grid of Testimonials */}
       <section className="py-24 bg-brand-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Testimonials</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((t) => (
               <motion.div
@@ -52,33 +52,33 @@ export const Testimonials: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeInUp}
-                className="bg-white p-10 rounded-3xl border border-brand-forest/5 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between"
+                className="bg-white p-10 rounded-3xl border border-brand-plum/5 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between"
               >
                 {/* Quotation icon background */}
-                <div className="absolute top-6 right-8 text-brand-emerald/10 select-none pointer-events-none">
+                <div className="absolute top-6 right-8 text-brand-violet/10 select-none pointer-events-none">
                   <Quote className="h-16 w-16" />
                 </div>
 
                 <div className="space-y-6 relative z-10">
-                  <span className="text-brand-emerald font-heading text-5xl leading-none select-none block">
+                  <span className="text-brand-violet font-heading text-5xl leading-none select-none block">
                     &ldquo;
                   </span>
-                  <p className="font-heading text-base sm:text-lg text-brand-forest/90 leading-relaxed italic">
+                  <p className="font-heading text-base sm:text-lg text-brand-plum/90 leading-relaxed italic">
                     {t.quote}
                   </p>
                 </div>
 
                 {/* Author Info */}
-                <div className="flex items-center space-x-4 pt-8 border-t border-brand-forest/5 mt-6">
+                <div className="flex items-center space-x-4 pt-8 border-t border-brand-plum/5 mt-6">
                   {/* Initials Avatar */}
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-forest to-brand-emerald text-brand-beige flex items-center justify-center font-heading text-sm font-semibold shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-plum to-brand-violet text-brand-beige flex items-center justify-center font-heading text-sm font-semibold shrink-0">
                     {getInitials(t.name)}
                   </div>
                   <div>
-                    <h3 className="font-heading text-base font-bold text-brand-forest">
+                    <h3 className="font-heading text-base font-bold text-brand-plum">
                       {t.name}
                     </h3>
-                    <p className="font-body text-xs text-brand-forest/65 font-medium">
+                    <p className="font-body text-xs text-brand-plum/65 font-medium">
                       {t.role} &bull; {t.location}
                     </p>
                   </div>
@@ -90,9 +90,10 @@ export const Testimonials: React.FC = () => {
       </section>
 
       {/* Quote Banner */}
-      <section className="py-24 bg-brand-forest text-brand-beige text-center relative overflow-hidden">
+      <section className="py-24 bg-brand-plum text-brand-beige text-center relative overflow-hidden">
+        <PlumBackdrop glow="center" rings={false} intensity="subtle" />
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
-          <Heart className="h-10 w-10 text-brand-emerald mx-auto" fill="currentColor" />
+          <Heart className="h-10 w-10 text-brand-violet-light mx-auto" fill="currentColor" />
           <h2 className="font-heading text-2xl sm:text-3xl font-bold text-white italic">
             &ldquo;We cannot change the entire world, but we can change the entire world for one family.&rdquo;
           </h2>

@@ -1,45 +1,33 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Navigate, NavLink, Route, Routes, useParams } from "react-router-dom";
-import { loadResources } from "./api/openapi";
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import ResourcePage from "./pages/ResourcePage";
-
-function ResourceRoute({ resources }) {
-  const { key } = useParams();
-  const resource = resources.find((r) => r.key === key);
-  if (!resource) return <Navigate to="/" replace />;
-  return <ResourcePage resource={resource} />;
-}
+import FamilyListPage from "./pages/FamilyListPage";
+import FamilyProfilePage from "./pages/FamilyProfilePage";
+import DependentProfilePage from "./pages/DependentProfilePage";
+import StudentsByGradePage from "./pages/StudentsByGradePage";
 
 function AdminShell() {
   const { logout } = useAuth();
-  const [resources, setResources] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    loadResources().then(setResources).catch((err) => setError(err.message));
-  }, []);
-
-  if (error) return <div className="center-note error">Failed to load API schema: {error}</div>;
-  if (!resources) return <div className="center-note">Loading…</div>;
 
   return (
-    <div className="shell">
-      <aside>
+    <div className="app-shell">
+      <header className="top-nav">
         <div className="brand">Pratheeksha</div>
         <nav>
-          {resources.map((r) => (
-            <NavLink key={r.key} to={`/r/${r.key}`}>{r.title}</NavLink>
-          ))}
+          <NavLink to="/families">Families</NavLink>
+          <NavLink to="/students">Students by Grade</NavLink>
         </nav>
         <button className="secondary logout" onClick={logout}>Log out</button>
-      </aside>
+      </header>
       <main>
         <Routes>
-          <Route path="/r/:key" element={<ResourceRoute resources={resources} />} />
-          <Route path="*" element={<Navigate to={`/r/${resources[0].key}`} replace />} />
+          <Route path="/families" element={<FamilyListPage />} />
+          <Route path="/students" element={<StudentsByGradePage />} />
+          <Route path="/families/new" element={<FamilyProfilePage isNew />} />
+          <Route path="/families/:prfmlId" element={<FamilyProfilePage />} />
+          <Route path="/families/:prfmlId/dependents/:dpid" element={<DependentProfilePage />} />
+          <Route path="*" element={<Navigate to="/families" replace />} />
         </Routes>
       </main>
     </div>

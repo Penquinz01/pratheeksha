@@ -28,7 +28,9 @@ export default function RegisterPage() {
   return (
     <div className="login-wrap">
       <form className="login-card" onSubmit={submit}>
-        <h1>Pratheeksha</h1>
+        <div className="brand-mark" aria-hidden="true">P</div>
+        <h1>Create account</h1>
+        <p className="login-sub">Pratheeksha family records</p>
         <label>
           Email
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />

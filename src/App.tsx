@@ -13,6 +13,7 @@ import { Programs } from './pages/Programs';
 import { SixPillars } from './pages/SixPillars';
 import { Gallery } from './pages/Gallery';
 import { Testimonials } from './pages/Testimonials';
+import { Stories } from './pages/Stories';
 import { Partnership } from './pages/Partnership';
 import { Volunteer } from './pages/Volunteer';
 import { AnnualReport } from './pages/AnnualReport';
@@ -36,6 +37,7 @@ function App() {
               <Route path="/six-pillars" element={<SixPillars />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/stories" element={<Stories />} />
               <Route path="/partnership" element={<Partnership />} />
               <Route path="/volunteer" element={<Volunteer />} />
               <Route path="/annual-report" element={<AnnualReport />} />

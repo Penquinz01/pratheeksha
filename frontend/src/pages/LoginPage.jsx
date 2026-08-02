@@ -27,7 +27,9 @@ export default function LoginPage() {
   return (
     <div className="login-wrap">
       <form className="login-card" onSubmit={submit}>
+        <div className="brand-mark" aria-hidden="true">P</div>
         <h1>Pratheeksha</h1>
+        <p className="login-sub">Family records administration</p>
         <label>
           Email
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />

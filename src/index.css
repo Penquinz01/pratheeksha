@@ -2,15 +2,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-forest: #16382c;
-  --color-brand-emerald: #10b981;
-  --color-brand-emerald-dark: #065f46;
-  --color-brand-beige: #f9f6f0;
-  --color-brand-warmwhite: #fcfbfa;
-  --color-brand-lightgray: #f3f4f6;
-  --color-brand-gold: #eab308;
-  --color-brand-gold-dark: #ca8a04;
-  --color-brand-olive: #65a30d;
+  /* A softened reading of the logo palette: the artwork's #502771 / #6455a4
+     desaturated and lightened for large surfaces, over warm off-whites rather
+     than a cool near-white. The logo files keep their own exact colours.
+     brand-violet is the accent on light surfaces; brand-violet-light is its
+     counterpart on the plum, where the mid violet is too dark to read;
+     it is set to clear 4.5:1 against the lightest point of the hero
+     backdrop (glow + texture), not merely against flat plum.
+     Plum text below 80% opacity drops under 4.5:1 on the beige -- do not
+     reintroduce /70 or /75 body copy without re-checking. */
+  --color-brand-plum: #5b3f77;
+  --color-brand-violet: #6f61ab;
+  --color-brand-violet-dark: #574a91;
+  --color-brand-violet-light: #dad4f0;
+  --color-brand-beige: #f4efe8;
+  --color-brand-warmwhite: #fbf8f4;
+  --color-brand-lightgray: #efe9e1;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -30,7 +37,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: var(--color-brand-forest);
+    color: var(--color-brand-plum);
   }
 }
 
@@ -41,20 +48,20 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--color-brand-emerald) !important;
+  background: var(--color-brand-violet) !important;
   width: 24px !important;
   border-radius: 4px !important;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: var(--color-brand-forest) !important;
+  color: var(--color-brand-plum) !important;
 }
 
 .glass-nav {
-  background: rgba(252, 251, 250, 0.85);
+  background: rgba(251, 248, 244, 0.85);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(22, 56, 44, 0.05);
+  border-bottom: 1px solid rgba(91, 63, 119, 0.08);
 }
 
 .glass-card {

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar } from 'lucide-react';
+import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar, HardHat, Accessibility, BookOpen, Users, Bus } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
-import { PlaceholderImage } from '../components/common/PlaceholderImage';
+import { PlumBackdrop } from '../components/common/PlumBackdrop';
+import { ImageSlot } from '../components/common/ImageSlot';
+import { EnrollmentTable } from '../components/common/EnrollmentTable';
 import { programsList } from '../data/content';
+import { renderEmphasis } from '../lib/richText';
 
 export const Programs: React.FC = () => {
   const fadeInUp = {
@@ -27,6 +30,16 @@ export const Programs: React.FC = () => {
         return <Heart className="h-6 w-6" />;
       case 'training-faith':
         return <Calendar className="h-6 w-6" />;
+      case 'rehab':
+        return <HardHat className="h-6 w-6" />;
+      case 'sahara-bharat':
+        return <Accessibility className="h-6 w-6" />;
+      case 'noorul-quran':
+        return <BookOpen className="h-6 w-6" />;
+      case 'ladies-wing':
+        return <Users className="h-6 w-6" />;
+      case 'tours':
+        return <Bus className="h-6 w-6" />;
       default:
         return <Heart className="h-6 w-6" />;
     }
@@ -37,12 +50,10 @@ export const Programs: React.FC = () => {
       <SEO title="Our Programs - Strategic Community Work" />
 
       {/* Hero Header */}
-      <section className="bg-brand-forest text-brand-beige py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-emerald rounded-full filter blur-[120px]" />
-        </div>
+      <section className="bg-brand-plum text-brand-beige py-24 md:py-32 relative overflow-hidden">
+        <PlumBackdrop glow="bottom-left" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+          <span className="text-brand-violet-light font-semibold uppercase tracking-wider text-xs font-body block">
             Our Initiatives
           </span>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight">
@@ -61,10 +72,10 @@ export const Programs: React.FC = () => {
             const isEven = index % 2 === 0;
 
             return (
-              <div 
-                key={prog.id} 
+              <React.Fragment key={prog.id}>
+              <div
                 id={prog.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center pb-24 border-b border-brand-forest/5 last:border-b-0 last:pb-0"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center pb-24 border-b border-brand-plum/5 last:border-b-0 last:pb-0 scroll-mt-24"
               >
                 {/* Visual Block */}
                 <motion.div
@@ -74,10 +85,10 @@ export const Programs: React.FC = () => {
                   variants={fadeInUp}
                   className={`lg:col-span-5 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
                 >
-                  <div className="relative p-2 bg-white rounded-3xl shadow-md border border-brand-forest/5 group overflow-hidden">
-                    <PlaceholderImage
-                      title={prog.title}
-                      category={prog.id}
+                  <div className="relative p-2 bg-white rounded-3xl shadow-md border border-brand-plum/5 group overflow-hidden">
+                    <ImageSlot
+                      filename={prog.imageFile}
+                      alt={prog.imageAlt}
                       aspectRatio="aspect-[4/3]"
                     />
                   </div>
@@ -91,8 +102,8 @@ export const Programs: React.FC = () => {
                   variants={fadeInUp}
                   className={`lg:col-span-7 space-y-6 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
                 >
-                  <div className="flex items-center space-x-3 text-brand-emerald">
-                    <div className="w-10 h-10 rounded-xl bg-brand-emerald/10 flex items-center justify-center">
+                  <div className="flex items-center space-x-3 text-brand-violet">
+                    <div className="w-10 h-10 rounded-xl bg-brand-violet/10 flex items-center justify-center">
                       {getIcon(prog.id)}
                     </div>
                     <span className="text-xs font-bold uppercase tracking-wider font-body">
@@ -100,24 +111,32 @@ export const Programs: React.FC = () => {
                     </span>
                   </div>
                   
-                  <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
+                  <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
                     {prog.title}
                   </h2>
                   
-                  <p className="font-body text-sm sm:text-base text-brand-forest/85 leading-relaxed">
-                    {prog.longDescription}
+                  <p className="font-body text-sm sm:text-base text-brand-plum/85 leading-relaxed">
+                    {renderEmphasis(prog.longDescription)}
                   </p>
 
                   <div className="pt-2">
                     <Link
                       to={prog.ctaLink}
-                      className="inline-flex items-center space-x-2 bg-brand-forest hover:bg-brand-emerald text-brand-beige hover:text-white px-6 py-3.5 rounded-full font-semibold text-xs tracking-wider uppercase transition-colors duration-300"
+                      className="inline-flex items-center space-x-2 bg-brand-plum hover:bg-brand-violet text-brand-beige hover:text-white px-6 py-3.5 rounded-full font-semibold text-xs tracking-wider uppercase transition-colors duration-300"
                     >
                       <span>{prog.ctaText}</span>
                     </Link>
                   </div>
                 </motion.div>
               </div>
+
+              {/* Enrollment breakdown sits directly below Education Promise. */}
+              {prog.id === 'education' && (
+                <div className="pb-24 border-b border-brand-plum/5">
+                  <EnrollmentTable />
+                </div>
+              )}
+              </React.Fragment>
             );
           })}
         </div>
