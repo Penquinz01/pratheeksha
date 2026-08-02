@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import LoginPage from "./pages/LoginPage";
@@ -6,9 +7,11 @@ import FamilyListPage from "./pages/FamilyListPage";
 import FamilyProfilePage from "./pages/FamilyProfilePage";
 import DependentProfilePage from "./pages/DependentProfilePage";
 import StudentsByGradePage from "./pages/StudentsByGradePage";
+import AssistantPanel from "./components/AssistantPanel";
 
 function AdminShell() {
   const { logout } = useAuth();
+  const [assistantOpen, setAssistantOpen] = useState(false);
 
   return (
     <div className="app-shell">
@@ -18,8 +21,12 @@ function AdminShell() {
           <NavLink to="/families">Families</NavLink>
           <NavLink to="/students">Students by Grade</NavLink>
         </nav>
+        <button className="secondary" onClick={() => setAssistantOpen(true)}>
+          Ask the database
+        </button>
         <button className="secondary logout" onClick={logout}>Log out</button>
       </header>
+      <AssistantPanel open={assistantOpen} onClose={() => setAssistantOpen(false)} />
       <main>
         <Routes>
           <Route path="/families" element={<FamilyListPage />} />

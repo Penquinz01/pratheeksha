@@ -20,6 +20,16 @@ class Settings(BaseSettings):
     cors_origins_raw: str = Field(default="http://localhost:3000", alias="CORS_ORIGINS")
     allow_registration: bool = True
 
+    # Read-only database assistant. Absent key = feature disabled, not an error;
+    # /assistant/status reports this so the UI can hide the panel.
+    gemini_api_key: str = ""
+    # Pin a specific model rather than a floating alias so behaviour doesn't
+    # change under you between deploys.
+    gemini_model: str = "gemini-3.5-flash"
+    # Ceiling on tool calls per question — bounds both latency and cost when a
+    # question sends the model round the loop repeatedly.
+    assistant_max_tool_calls: int = 8
+
     @property
     def cors_origins(self) -> list[str]:
         v = self.cors_origins_raw.strip()
