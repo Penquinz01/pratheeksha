@@ -8,11 +8,14 @@ import { ImageSlot } from '../components/common/ImageSlot';
 import { 
   heroContent, 
   aboutContent, 
-  howWeWorkSteps, 
-  sixPillars, 
-  housingHighlight, 
-  galleryData 
+  howWeWorkSteps,
+  sixPillars,
+  housingHighlight,
+  galleryData,
+  successStories
 } from '../data/content';
+import { StoryQuote } from '../components/common/StoryQuote';
+import { PlumBackdrop } from '../components/common/PlumBackdrop';
 
 export const Home: React.FC = () => {
   const fadeInUp = {
@@ -35,20 +38,23 @@ export const Home: React.FC = () => {
       <SEO title="Hope, Made Visible" />
 
       {/* 1. Hero Section */}
-      <section className="relative min-h-[92vh] flex items-center justify-center bg-gradient-to-br from-brand-forest via-[#1e3e34] to-black text-brand-beige overflow-hidden pt-20">
+      <section className="relative min-h-[92vh] flex items-center justify-center bg-gradient-to-br from-brand-plum via-[#3a1a55] to-black text-brand-beige overflow-hidden pt-20">
         {/* Abstract Background Art */}
-        <div className="absolute inset-0 pointer-events-none opacity-20">
-          <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-brand-emerald filter blur-[100px] animate-pulse duration-8000" />
-          <div className="absolute bottom-1/4 right-1/10 w-[450px] h-[450px] rounded-full bg-brand-emerald filter blur-[150px]" />
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-20">
+          <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-brand-violet filter blur-[100px] animate-pulse duration-8000" />
+          <div className="absolute bottom-1/4 right-1/10 w-[450px] h-[450px] rounded-full bg-brand-violet filter blur-[150px]" />
           <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px]" />
         </div>
+        {/* Pass `photo` here once a real photograph of the foundation's work
+            exists, e.g. <PlumBackdrop photo="/images/hero-handover.jpg" ... /> */}
+        <PlumBackdrop glow="center" rings={false} intensity="subtle" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="flex items-center space-x-2 bg-brand-emerald/10 border border-brand-emerald/20 px-4 py-1.5 rounded-full text-brand-emerald mb-6"
+            className="flex items-center space-x-2 bg-brand-violet/10 border border-brand-violet/20 px-4 py-1.5 rounded-full text-brand-violet-light mb-6"
           >
             <Heart className="h-4 w-4" fill="currentColor" />
             <span className="text-xs font-semibold uppercase tracking-wider font-body">
@@ -82,7 +88,7 @@ export const Home: React.FC = () => {
           >
             <Link
               to={heroContent.primaryCtaLink}
-              className="w-full sm:w-auto bg-brand-emerald text-white hover:bg-brand-emerald-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-emerald/20 hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full sm:w-auto bg-brand-violet text-white hover:bg-brand-violet-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-violet/20 hover:-translate-y-0.5 active:translate-y-0"
             >
               {heroContent.primaryCtaText}
             </Link>
@@ -103,7 +109,7 @@ export const Home: React.FC = () => {
             onClick={() => document.getElementById('about-preview')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <div className="w-6 h-10 border border-brand-beige/30 rounded-full flex justify-center p-1">
-              <div className="w-1.5 h-3 bg-brand-emerald rounded-full" />
+              <div className="w-1.5 h-3 bg-brand-violet rounded-full" />
             </div>
           </motion.div>
         </div>
@@ -121,19 +127,19 @@ export const Home: React.FC = () => {
               variants={fadeInUp}
               className="lg:col-span-7 space-y-6"
             >
-              <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+              <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block">
                 Who We Are
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-brand-forest leading-tight">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-brand-plum leading-tight">
                 Rooted in Wayanad, Dedicated to Human Dignity
               </h2>
-              <p className="font-body text-brand-forest/80 leading-relaxed text-base md:text-lg">
+              <p className="font-body text-brand-plum/80 leading-relaxed text-base md:text-lg">
                 {aboutContent.whoWeAre}
               </p>
               <div className="pt-4 flex">
                 <Link
                   to="/about"
-                  className="flex items-center space-x-2 text-brand-emerald hover:text-brand-forest font-semibold uppercase tracking-wider text-sm transition-colors group"
+                  className="flex items-center space-x-2 text-brand-violet hover:text-brand-plum font-semibold uppercase tracking-wider text-sm transition-colors group"
                 >
                   <span>Discover Our Full Story</span>
                   <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
@@ -149,7 +155,7 @@ export const Home: React.FC = () => {
               variants={fadeInUp}
               className="lg:col-span-5 relative"
             >
-              <div className="absolute inset-0 bg-brand-forest/5 rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none" />
+              <div className="absolute inset-0 bg-brand-plum/5 rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none" />
               <ImageSlot
                 filename="wayanad-community-engagement.jpg"
                 alt="Field team meeting families in a Wayanad settlement"
@@ -166,16 +172,16 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
-              <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block mb-2">
+              <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
                 Our Foundation
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
                 The Six Pillars of Pratheeksha
               </h2>
             </div>
             <Link
               to="/six-pillars"
-              className="flex items-center space-x-2 text-brand-emerald hover:text-brand-forest font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
+              className="flex items-center space-x-2 text-brand-violet hover:text-brand-plum font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
             >
               <span>Explore Pillars in Depth</span>
               <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
@@ -193,23 +199,23 @@ export const Home: React.FC = () => {
               <motion.div
                 key={pillar.id}
                 variants={fadeInUp}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-brand-forest/5 hover:border-brand-emerald/20 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
+                className="bg-white p-8 rounded-2xl shadow-sm border border-brand-plum/5 hover:border-brand-violet/20 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-forest/5 flex items-center justify-center text-brand-forest group-hover:bg-brand-emerald/10 group-hover:text-brand-emerald transition-colors font-heading text-xl font-bold">
+                  <div className="w-12 h-12 rounded-xl bg-brand-plum/5 flex items-center justify-center text-brand-plum group-hover:bg-brand-violet/10 group-hover:text-brand-violet transition-colors font-heading text-xl font-bold">
                     {String(idx + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-brand-forest">
+                  <h3 className="font-heading text-xl font-bold text-brand-plum">
                     {pillar.title}
                   </h3>
-                  <p className="font-body text-sm text-brand-forest/75 leading-relaxed">
+                  <p className="font-body text-sm text-brand-plum/80 leading-relaxed">
                     {pillar.description}
                   </p>
                 </div>
                 <div className="pt-6">
                   <Link 
                     to="/six-pillars" 
-                    className="text-brand-emerald text-xs font-semibold uppercase tracking-wider flex items-center space-x-1 group-hover:text-brand-forest transition-colors"
+                    className="text-brand-violet text-xs font-semibold uppercase tracking-wider flex items-center space-x-1 group-hover:text-brand-plum transition-colors"
                   >
                     <span>Read pillar details</span>
                     <ChevronRight className="h-3 w-3" />
@@ -222,10 +228,10 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 5. Housing Highlight (Dedicated Section) */}
-      <section className="relative py-32 bg-brand-forest text-brand-beige overflow-hidden">
+      <section className="relative py-32 bg-brand-plum text-brand-beige overflow-hidden">
         {/* Background Image / Overlay */}
         <div className="absolute inset-0 opacity-15">
-          <div className="w-full h-full bg-gradient-to-r from-brand-forest via-brand-emerald-dark to-brand-forest" />
+          <div className="w-full h-full bg-gradient-to-r from-brand-plum via-brand-violet-dark to-brand-plum" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -237,7 +243,7 @@ export const Home: React.FC = () => {
               transition={{ duration: 0.8 }}
               className="lg:col-span-7 space-y-6"
             >
-              <div className="inline-flex items-center space-x-2 bg-brand-emerald/20 border border-brand-emerald/30 px-3 py-1 rounded-full text-brand-emerald">
+              <div className="inline-flex items-center space-x-2 bg-brand-violet/20 border border-brand-violet/30 px-3 py-1 rounded-full text-brand-violet-light">
                 <HomeIcon className="h-4 w-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider font-body">
                   Featured Initiative
@@ -252,7 +258,7 @@ export const Home: React.FC = () => {
               <div className="pt-4">
                 <Link
                   to={housingHighlight.ctaLink}
-                  className="inline-flex items-center space-x-3 bg-brand-emerald text-white hover:bg-brand-emerald-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-emerald/10"
+                  className="inline-flex items-center space-x-3 bg-brand-violet text-white hover:bg-brand-violet-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-violet/10"
                 >
                   <span>{housingHighlight.ctaText}</span>
                   <ArrowRight className="h-4 w-4" />
@@ -283,13 +289,13 @@ export const Home: React.FC = () => {
       <section className="py-24 bg-brand-beige relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block mb-2">
+            <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
               Our Methodology
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
               How We Work
             </h2>
-            <p className="font-body text-sm text-brand-forest/75 mt-4 leading-relaxed">
+            <p className="font-body text-sm text-brand-plum/80 mt-4 leading-relaxed">
               We employ a continuous, transparent operational cycle that ensures every bit of support gets fully verified, professionally executed, and systematically tracked.
             </p>
           </div>
@@ -302,21 +308,21 @@ export const Home: React.FC = () => {
             className="grid grid-cols-1 md:grid-cols-5 gap-8 relative"
           >
             {/* Timeline connector line on desktop */}
-            <div className="absolute top-1/4 left-1/10 right-1/10 h-[1.5px] bg-brand-forest/10 hidden md:block z-0" />
+            <div className="absolute top-1/4 left-1/10 right-1/10 h-[1.5px] bg-brand-plum/10 hidden md:block z-0" />
 
             {howWeWorkSteps.map((step) => (
               <motion.div
                 key={step.step}
                 variants={fadeInUp}
-                className="bg-white p-6 rounded-2xl border border-brand-forest/5 shadow-sm relative z-10 hover:shadow-md transition-shadow group text-center"
+                className="bg-white p-6 rounded-2xl border border-brand-plum/5 shadow-sm relative z-10 hover:shadow-md transition-shadow group text-center"
               >
-                <div className="w-12 h-12 rounded-full bg-brand-forest text-brand-beige font-heading text-lg font-bold flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-emerald transition-colors">
+                <div className="w-12 h-12 rounded-full bg-brand-plum text-brand-beige font-heading text-lg font-bold flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-violet transition-colors">
                   {step.step}
                 </div>
-                <h3 className="font-heading text-lg font-bold text-brand-forest mb-2">
+                <h3 className="font-heading text-lg font-bold text-brand-plum mb-2">
                   {step.title}
                 </h3>
-                <p className="font-body text-xs text-brand-forest/75 leading-relaxed">
+                <p className="font-body text-xs text-brand-plum/80 leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>
@@ -329,11 +335,41 @@ export const Home: React.FC = () => {
 
 
 
+      {/* 7. Voices of Pratheeksha (Preview) — no animation or hover lift here,
+          matching the dignified treatment on the /stories page itself. */}
+      <section className="py-24 bg-brand-warmwhite">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+              <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
+                Success Stories
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
+                Voices of Pratheeksha
+              </h2>
+            </div>
+            <Link
+              to="/stories"
+              className="flex items-center space-x-2 text-brand-violet hover:text-brand-plum font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
+            >
+              <span>Read All Stories</span>
+              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            {successStories.slice(0, 3).map((story) => (
+              <StoryQuote key={story.id} story={story} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 9. Volunteer CTA Section */}
-      <section className="py-24 bg-brand-forest text-brand-beige relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-emerald/10 rounded-full filter blur-3xl pointer-events-none" />
+      <section className="py-24 bg-brand-plum text-brand-beige relative overflow-hidden">
+        <PlumBackdrop glow="top-right" rings={false} intensity="subtle" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+          <span className="text-brand-violet-light font-semibold uppercase tracking-wider text-xs font-body block">
             Make A Difference
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
@@ -345,7 +381,7 @@ export const Home: React.FC = () => {
           <div className="pt-4">
             <Link
               to="/volunteer"
-              className="bg-brand-emerald text-white hover:bg-brand-emerald-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-emerald/10 hover:-translate-y-0.5 active:translate-y-0"
+              className="bg-brand-violet text-white hover:bg-brand-violet-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-violet/10 hover:-translate-y-0.5 active:translate-y-0"
             >
               Join Our Volunteer Team
             </Link>
@@ -358,16 +394,16 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
-              <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block mb-2">
+              <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
                 Visual Stories
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-forest">
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
                 Impact Gallery
               </h2>
             </div>
             <Link
               to="/gallery"
-              className="flex items-center space-x-2 text-brand-emerald hover:text-brand-forest font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
+              className="flex items-center space-x-2 text-brand-violet hover:text-brand-plum font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
             >
               <span>View Full Gallery</span>
               <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
@@ -391,18 +427,18 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 11. Final Contact CTA */}
-      <section className="py-20 bg-brand-beige border-t border-brand-forest/5">
+      <section className="py-20 bg-brand-beige border-t border-brand-plum/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-forest">
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-plum">
             Have questions about our transparency or auditing?
           </h2>
-          <p className="font-body text-sm sm:text-base text-brand-forest/75 max-w-xl mx-auto">
+          <p className="font-body text-sm sm:text-base text-brand-plum/80 max-w-xl mx-auto">
             We values partnerships. Reach out directly to learn how we work, verify beneficiary profiles, or receive copy receipts.
           </p>
           <div className="pt-2">
             <Link
               to="/contact"
-              className="inline-flex items-center space-x-2 text-brand-forest hover:text-brand-emerald font-semibold uppercase tracking-wider text-sm transition-colors"
+              className="inline-flex items-center space-x-2 text-brand-plum hover:text-brand-violet font-semibold uppercase tracking-wider text-sm transition-colors"
             >
               <span>Get in Touch with our team</span>
               <ArrowRight className="h-4 w-4" />

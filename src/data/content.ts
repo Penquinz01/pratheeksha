@@ -116,9 +116,22 @@ export const organizationDetails: OrganizationDetails = {
   footerQuote: "Together, we embrace one purpose: transforming lives and uplifting people."
 };
 
+/**
+ * The single source for the public tagline. Used by the footer, the home hero
+ * and the default page description, so the three can never drift apart.
+ */
+export const fullTagline =
+  "Hope, Made Visible. Uplifting single-mother households, orphans, and chronic patients in the hill tracts of Wayanad.";
+
+/** Pull quote shown near the top of /about. */
+export const philosophyStatement =
+  "Pratheeksha is not just charity; it is the beginning of a life transformation, holding families close with love, dignity, and care.";
+
 export const heroContent = {
   headline: "Hope, Made Visible.",
-  supportingText: "We are dedicated to uplifting orphan families, destitute individuals, and vulnerable communities across Wayanad, Kerala. Through structured support in housing, education, healthcare, and livelihood training, we restore dignity and build futures.",
+  // The headline already carries the first sentence of fullTagline, so the
+  // subheading takes the remainder rather than repeating it.
+  supportingText: "Uplifting single-mother households, orphans, and chronic patients in the hill tracts of Wayanad.",
   primaryCtaText: "Become a Partner",
   primaryCtaLink: "/partnership",
   secondaryCtaText: "Volunteer",
@@ -191,11 +204,184 @@ export const executiveCommittee: CommitteeMember[] = [
 
 export const ladiesWingLeadership: CommitteeMember[] = [
   { name: "Basima Teacher & Haseena Latheef", role: "Executive Members (Education Board)" },
-  { name: "Shafeena Siddiq & Sajna Samad", role: "Executive Members (Noorul Qur'an)" },
-  { name: "Shaharban Abid", role: "Executive Member (Noorul Qur'an & Medical)" },
+  { name: "Shafeena Siddiq & Sajna Samad", role: "Executive Members (Noorul Qur’an)" },
+  { name: "Shaharban Abid", role: "Executive Member (Noorul Qur’an & Medical)" },
   { name: "Ramla Safarullah", role: "Executive Member (Dress Distribution)" },
   { name: "Subaida Ibrahim", role: "Executive Member (Tour & Recreation)" },
   { name: "Jelisha Nazimudeen & Shareena Varadoor", role: "Educational Promoters" }
+];
+
+export interface MemorialEntry {
+  name: string;
+  /** Optional relation, shown smaller and lighter beneath the name. */
+  relation?: string;
+}
+
+export const inLovingMemory: MemorialEntry[] = [
+  { name: "Noufal Puthiyapadi" },
+  { name: "Ramlath Palamukku" },
+  { name: "Afsath Nelliyambam" },
+  { name: "Thankachan Pulpally" },
+  { name: "Amina", relation: "Mother of Aayisha Puthusserikadavu" },
+  { name: "Andru", relation: "Husband of Aasya Kunnoth" }
+];
+
+export interface EnrollmentRow {
+  level: string;
+  students: number;
+}
+
+export const studentEnrollment: EnrollmentRow[] = [
+  { level: "Kindergarten (KG)", students: 15 },
+  { level: "Lower Primary (LP)", students: 50 },
+  { level: "Upper Primary (UP)", students: 72 },
+  { level: "High School (HS)", students: 75 },
+  { level: "Higher Secondary (HSS)", students: 57 },
+  { level: "Diploma Programs", students: 23 },
+  { level: "Undergraduate (Degree)", students: 21 },
+  { level: "Post-Graduate (PG)", students: 6 },
+  { level: "Civil Service / Specialized Coaching", students: 7 }
+];
+
+/** Published total. Kept explicit rather than summed so the figure on the page
+ *  always matches the report, and any mismatch with the rows is visible. */
+export const studentEnrollmentTotal: EnrollmentRow = {
+  level: "Total Enrolled Students",
+  students: 326
+};
+
+export interface SuccessStory {
+  id: string;
+  name: string;
+  /** What the person is currently doing, e.g. "Civil Service Aspirant". */
+  role: string;
+  /** Where they study. Shown after the role on the attribution line. */
+  institution: string;
+  quote: string;
+}
+
+// First-person accounts of bereavement and hardship. Reproduced verbatim.
+// Deliberately carry no photograph, avatar or per-person donation CTA.
+export const successStories: SuccessStory[] = [
+  {
+    id: "vismaya",
+    name: "Vismaya",
+    role: "Civil Service Aspirant",
+    institution: "Lead IAS Academy, Trivandrum",
+    quote: "My father passed away after a prolonged illness when I was young, leaving my mother to raise us alone with immense struggles. Pratheeksha Foundation didn't just fund my degree; they adopted me into their family. With their complete support, I am now training in Trivandrum to fulfill my dream of becoming an IPS officer. They proved to me that I am never alone."
+  },
+  {
+    id: "muhammad-arshad",
+    name: "Muhammad Arshad",
+    role: "Post-Graduate Student",
+    institution: "Central University of Tamil Nadu",
+    quote: "I lost my father when I was in the 6th grade. From taking up part-time jobs alongside my studies to becoming a driver in Bangalore, my path was filled with hurdles. But Pratheeksha held my hand. Today, I am completing my final year in Library and Information Science at a Central University. The education they empowered me with is the greatest gift my family has ever received."
+  },
+  {
+    id: "fathimathul-nishana",
+    name: "Fathimathul Nishana",
+    role: "Civil Service Aspirant",
+    institution: "Fortune IAS Academy",
+    quote: "I am from Mananthavady, and my biggest dream has always been to become an IAS officer. Pratheeksha Foundation made this a reality by securing a scholarship for my coaching in Trivandrum. The mental, emotional, and financial support they provide makes you feel like you are part of a massive, caring family."
+  },
+  {
+    id: "shahana-sherin",
+    name: "Shahana Sherin",
+    role: "Undergraduate Student",
+    institution: "Catholicate College, Pathanamthitta",
+    quote: "For the past six years, Pratheeksha has been the backbone of my family's educational journey. My two siblings and I have received unwavering support. Thanks to their precise guidance and mentorship, I secured admission to a top-tier university based on merit. For a student willing to work hard, Pratheeksha ensures that financial barriers never stand in the way of their goals."
+  }
+];
+
+export interface PartnerEntry {
+  name: string;
+  /** Optional descriptor, shown smaller and muted beneath the name. */
+  descriptor?: string;
+}
+
+export interface PartnerGroup {
+  heading: string;
+  partners: PartnerEntry[];
+}
+
+// Third-party partners are listed as text only: we hold no logo usage rights,
+// and the names are deliberately not linked to any external site.
+export const partnerNetwork: PartnerGroup[] = [
+  {
+    heading: "Grocery Distribution Partners",
+    partners: [
+      { name: "Local authorized shops in Mananthavady, Taruvana, Kalpetta, and Vaduvanchal" }
+    ]
+  },
+  {
+    heading: "Apparel Partners",
+    partners: [
+      { name: "Family Wedding Centre, Meppadi" },
+      { name: "E-Dress / S. Bharat, Kalpetta" },
+      { name: "Family Weddings, Sulthan Bathery" }
+    ]
+  },
+  {
+    heading: "Education & Coaching Partners",
+    partners: [
+      { name: "Lead IAS Academy, Trivandrum" },
+      { name: "Fortune IAS Academy, Trivandrum" },
+      { name: "Labour India", descriptor: "High School academic partner" }
+    ]
+  },
+  {
+    heading: "Institutional & Healthcare Partners",
+    partners: [
+      { name: "Wayanad Muslim Orphanage (WMO), Muttil", descriptor: "Sahara Bharat Foundation collaboration" },
+      { name: "Thanal", descriptor: "disability and rehabilitation care" },
+      {
+        name: "Meenangadi Charitable Trust",
+        descriptor: "Centre for Medical & Social Research; land donated by DFO Moosa & Noorjahan Moosa"
+      },
+      { name: "E. Rahman Charitable Trust, Kochi" },
+      { name: "Iqraa Hospital, Kozhikode", descriptor: "medical and palliative referral partner" }
+    ]
+  }
+];
+
+export interface MilestoneEntry {
+  title: string;
+  /** Venue, site or destination this entry took place at. */
+  venue: string;
+  /** Machine-readable date for <time datetime>; omitted for undated venues. */
+  isoDate?: string;
+  /** Human-readable date, e.g. "29 April 2026". */
+  displayDate?: string;
+  /** Optional cross-link to the related programme card on /programs. */
+  link?: { to: string; label: string };
+}
+
+// Every entry below has already happened. This is a record of past gatherings
+// and working sites, not a schedule — do not render it as upcoming events.
+export const milestonesAndVenues: MilestoneEntry[] = [
+  {
+    title: "18th Annual Meet",
+    venue: "Destiny Lounge, Kalpetta",
+    isoDate: "2026-04-29",
+    displayDate: "29 April 2026"
+  },
+  {
+    title: "5th Noorul Qur’an Annual Meet",
+    venue: "Rainbow Auditorium, Vengappally",
+    isoDate: "2025-12-14",
+    displayDate: "14 December 2025",
+    link: { to: "/programs#noorul-quran", label: "Noorul Qur’an Initiative" }
+  },
+  {
+    title: "Rehab Township Site",
+    venue: "3.25 acres, Thrikkaipetta, Meppadi Panchayat",
+    link: { to: "/programs#rehab", label: "Pratheeksha Rehab" }
+  },
+  {
+    title: "Student Excursion Destinations",
+    venue: "Wonderla Kochi and the Nefertiti cruise ship, Bolgatty Island",
+    link: { to: "/programs#tours", label: "Recreational & Educational Tours" }
+  }
 ];
 
 export const howWeWorkSteps = [
@@ -289,13 +475,23 @@ export const programsList: ProgramDetails[] = [
   },
   {
     id: "noorul-quran",
-    title: "Noorul Qur'an",
-    description: "Islamic education, now in its 5th season.",
-    longDescription: "Our Islamic education initiative, now successfully running its 5th season.",
-    ctaText: "Support Noorul Qur'an",
+    title: "Noorul Qur’an Initiative",
+    description: "Spiritual & Moral Education (5th Season)",
+    longDescription: "Launched in 2020 to promote spiritual development and moral grounding, Noorul Qur’an conducts structured 45-day courses covering 4 *Juzhs* of the Qur’an across 30 modules. Top-performing students and families are recognized with cash awards and honors during annual community meets.",
+    ctaText: "Support Noorul Qur’an",
     ctaLink: "/partnership",
     imageFile: "noorul-quran-class-session.jpg",
-    imageAlt: "Students attending a Noorul Qur'an class session"
+    imageAlt: "Students attending a Noorul Qur’an class session"
+  },
+  {
+    id: "tours",
+    title: "Recreational & Educational Tours",
+    description: "Mental Well-being & Holistic Youth Exposure",
+    longDescription: "To support emotional wellness and child development, Pratheeksha organizes multi-day educational excursions. Highlights include bringing **110 participants** — including students and volunteers — on trips to Wonderla Kochi and sea voyages aboard the Nefertiti ship.",
+    ctaText: "Sponsor a Student Tour",
+    ctaLink: "/partnership",
+    imageFile: "educational-tour-group.jpg",
+    imageAlt: "Students and volunteers on an educational excursion"
   },
   {
     id: "ladies-wing",

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { organizationDetails } from '../../data/content';
+import { Logo } from '../common/Logo';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,8 +42,8 @@ export const Navbar: React.FC = () => {
   const activeLinkStyle = (path: string) => {
     const isActive = location.pathname === path;
     return isActive 
-      ? "text-brand-emerald font-semibold after:scale-x-100" 
-      : "text-brand-forest/90 hover:text-brand-emerald after:scale-x-0";
+      ? "text-brand-violet font-semibold after:scale-x-100" 
+      : "text-brand-plum/90 hover:text-brand-violet after:scale-x-0";
   };
 
   return (
@@ -58,18 +58,8 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group shrink-0">
-            <div className="bg-brand-forest p-1.5 rounded-lg group-hover:bg-brand-emerald transition-colors duration-300 flex items-center justify-center">
-              <Heart className="h-5 w-5 text-brand-beige" fill="currentColor" />
-            </div>
-            <div className="flex flex-col justify-center">
-              <span className="font-heading text-lg font-bold tracking-tight text-brand-forest group-hover:text-brand-emerald transition-colors duration-300 block leading-none">
-                {organizationDetails.shortName}
-              </span>
-              <span className="text-[10px] tracking-wider text-brand-forest/70 block uppercase font-body mt-0.5 leading-none">
-                Foundation
-              </span>
-            </div>
+          <Link to="/" className="flex items-center group shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet" aria-label="Pratheeksha Foundation - home">
+            <Logo />
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -78,7 +68,7 @@ export const Navbar: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative flex items-center h-full text-[11px] xl:text-xs font-semibold tracking-wider uppercase transition-colors duration-300 whitespace-nowrap px-1 xl:px-2 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-emerald after:origin-center after:transition-transform after:duration-300 ${activeLinkStyle(
+                className={`relative flex items-center h-full text-[11px] xl:text-xs font-semibold tracking-wider uppercase transition-colors duration-300 whitespace-nowrap px-1 xl:px-2 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-violet after:origin-center after:transition-transform after:duration-300 ${activeLinkStyle(
                   link.path
                 )}`}
               >
@@ -91,7 +81,7 @@ export const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center shrink-0 h-full">
             <Link
               to="/partnership"
-              className="bg-brand-forest text-brand-beige hover:bg-brand-emerald hover:text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-md active:scale-95 whitespace-nowrap"
+              className="bg-brand-plum text-brand-beige hover:bg-brand-violet hover:text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-md active:scale-95 whitespace-nowrap"
             >
               Partner Us
             </Link>
@@ -101,7 +91,7 @@ export const Navbar: React.FC = () => {
           <div className="flex lg:hidden items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-brand-forest hover:text-brand-emerald focus:outline-none p-1.5 rounded-lg"
+              className="text-brand-plum hover:text-brand-violet p-1.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-plum"
               aria-label="Toggle navigation menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -118,7 +108,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-brand-warmwhite/98 border-t border-brand-forest/5 shadow-inner absolute top-full left-0 right-0 w-full"
+            className="lg:hidden bg-brand-warmwhite/98 border-t border-brand-plum/5 shadow-inner absolute top-full left-0 right-0 w-full"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navLinks.map((link) => (
@@ -127,8 +117,8 @@ export const Navbar: React.FC = () => {
                   to={link.path}
                   className={`block px-3 py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider transition-colors ${
                     location.pathname === link.path
-                      ? 'bg-brand-forest/5 text-brand-emerald font-semibold'
-                      : 'text-brand-forest hover:bg-brand-forest/5 hover:text-brand-emerald'
+                      ? 'bg-brand-plum/5 text-brand-violet font-semibold'
+                      : 'text-brand-plum hover:bg-brand-plum/5 hover:text-brand-violet'
                   }`}
                 >
                   {link.name}
@@ -138,7 +128,7 @@ export const Navbar: React.FC = () => {
               <div className="pt-4 px-3">
                 <Link
                   to="/partnership"
-                  className="block w-full text-center bg-brand-forest text-brand-beige hover:bg-brand-emerald hover:text-white py-3 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300"
+                  className="block w-full text-center bg-brand-plum text-brand-beige hover:bg-brand-violet hover:text-white py-3 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300"
                 >
                   Partner Us
                 </Link>

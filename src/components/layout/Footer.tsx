@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Heart } from 'lucide-react';
-import { organizationDetails } from '../../data/content';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { organizationDetails, fullTagline } from '../../data/content';
+import { Logo } from '../common/Logo';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -12,6 +13,7 @@ export const Footer: React.FC = () => {
     { name: 'Our Programs', path: '/programs' },
     { name: 'Six Pillars', path: '/six-pillars' },
     { name: 'Photo Gallery', path: '/gallery' },
+    { name: 'Success Stories', path: '/stories' },
   ];
 
   const supportLinks = [
@@ -22,7 +24,7 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-brand-forest text-brand-beige border-t border-brand-forest/10 pt-16 pb-8 relative overflow-hidden">
+    <footer className="bg-brand-plum text-brand-beige border-t border-brand-plum/10 pt-16 pb-8 relative overflow-hidden">
       {/* Background Decorative Rings */}
       <div className="absolute -right-32 -bottom-32 w-96 h-96 rounded-full border-2 border-brand-beige/5 pointer-events-none" />
       <div className="absolute -left-32 -top-32 w-96 h-96 rounded-full border-2 border-brand-beige/5 pointer-events-none" />
@@ -31,28 +33,18 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Info */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="bg-brand-beige p-1.5 rounded-lg group-hover:bg-brand-emerald transition-colors duration-300">
-                <Heart className="h-6 w-6 text-brand-forest group-hover:text-white" fill="currentColor" />
-              </div>
-              <div>
-                <span className="font-heading text-lg md:text-xl font-bold tracking-tight text-white block leading-tight">
-                  {organizationDetails.shortName}
-                </span>
-                <span className="text-[10px] tracking-wider text-brand-beige/70 block uppercase font-body -mt-0.5">
-                  Foundation
-                </span>
-              </div>
+            <Link to="/" className="flex items-center group rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet-light" aria-label="Pratheeksha Foundation - home">
+              <Logo tone="light" size="h-14" />
             </Link>
             <p className="text-sm text-brand-beige/80 leading-relaxed font-body">
-              {organizationDetails.tagline}. Uplifting single-mother households, orphans, and chronic patients in the hill tracts of Wayanad.
+              {fullTagline}
             </p>
             <div className="flex space-x-3 pt-2">
               <a 
                 href={organizationDetails.socials.facebook} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-emerald hover:text-white transition-colors duration-300"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-violet hover:text-white transition-colors duration-300"
                 aria-label="Facebook"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -63,7 +55,7 @@ export const Footer: React.FC = () => {
                 href={organizationDetails.socials.instagram} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-emerald hover:text-white transition-colors duration-300"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-violet hover:text-white transition-colors duration-300"
                 aria-label="Instagram"
               >
                 <svg className="h-4 w-4 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -76,7 +68,7 @@ export const Footer: React.FC = () => {
                 href={organizationDetails.socials.twitter} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-emerald hover:text-white transition-colors duration-300"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-violet hover:text-white transition-colors duration-300"
                 aria-label="Twitter"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -87,7 +79,7 @@ export const Footer: React.FC = () => {
                 href={organizationDetails.socials.youtube} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-emerald hover:text-white transition-colors duration-300"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-violet hover:text-white transition-colors duration-300"
                 aria-label="YouTube"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -99,15 +91,15 @@ export const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-heading text-lg text-white font-medium tracking-wide">
+            <h2 className="font-heading text-lg text-white font-medium tracking-wide">
               Who We Are
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm font-body">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="text-brand-beige/85 hover:text-brand-emerald hover:translate-x-1 inline-block transition-all duration-200"
+                    className="text-brand-beige/85 hover:text-brand-violet-light hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {link.name}
                   </Link>
@@ -118,15 +110,15 @@ export const Footer: React.FC = () => {
 
           {/* Support Links */}
           <div className="space-y-4">
-            <h4 className="font-heading text-lg text-white font-medium tracking-wide">
+            <h2 className="font-heading text-lg text-white font-medium tracking-wide">
               Get Involved
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm font-body">
               {supportLinks.map((link) => (
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="text-brand-beige/85 hover:text-brand-emerald hover:translate-x-1 inline-block transition-all duration-200"
+                    className="text-brand-beige/85 hover:text-brand-violet-light hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {link.name}
                   </Link>
@@ -137,12 +129,12 @@ export const Footer: React.FC = () => {
 
           {/* Contact Details */}
           <div className="space-y-4">
-            <h4 className="font-heading text-lg text-white font-medium tracking-wide">
+            <h2 className="font-heading text-lg text-white font-medium tracking-wide">
               Headquarters
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm text-brand-beige/80 font-body">
               <li className="flex items-start space-x-2.5">
-                <MapPin className="h-5 w-5 text-brand-emerald shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-brand-violet-light shrink-0 mt-0.5" />
                 <span>
                   {organizationDetails.address.line1},<br />
                   {organizationDetails.address.line2},<br />
@@ -150,14 +142,14 @@ export const Footer: React.FC = () => {
                 </span>
               </li>
               <li className="flex items-center space-x-2.5">
-                <Phone className="h-4 w-4 text-brand-emerald shrink-0" />
-                <a href={`tel:${organizationDetails.phone}`} className="hover:text-brand-emerald transition-colors">
+                <Phone className="h-4 w-4 text-brand-violet-light shrink-0" />
+                <a href={`tel:${organizationDetails.phone}`} className="hover:text-brand-violet-light transition-colors">
                   {organizationDetails.phone}
                 </a>
               </li>
               <li className="flex items-center space-x-2.5">
-                <Mail className="h-4 w-4 text-brand-emerald shrink-0" />
-                <a href={`mailto:${organizationDetails.email}`} className="hover:text-brand-emerald transition-colors break-all">
+                <Mail className="h-4 w-4 text-brand-violet-light shrink-0" />
+                <a href={`mailto:${organizationDetails.email}`} className="hover:text-brand-violet-light transition-colors break-all">
                   {organizationDetails.email}
                 </a>
               </li>

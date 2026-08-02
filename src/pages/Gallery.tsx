@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Heart, Grid, Home, BookOpen, HeartPulse, ShieldAlert } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
+import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { ImageSlot } from '../components/common/ImageSlot';
 import { galleryData } from '../data/content';
 
@@ -35,12 +36,10 @@ export const Gallery: React.FC = () => {
       <SEO title="Photo Gallery - Transparency in Action" />
 
       {/* Hero Header */}
-      <section className="bg-brand-forest text-brand-beige py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-brand-emerald rounded-full filter blur-[120px]" />
-        </div>
+      <section className="bg-brand-plum text-brand-beige py-24 md:py-32 relative overflow-hidden">
+        <PlumBackdrop glow="bottom-right" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <span className="text-brand-emerald font-semibold uppercase tracking-wider text-xs font-body block">
+          <span className="text-brand-violet-light font-semibold uppercase tracking-wider text-xs font-body block">
             Visual Transparency
           </span>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight">
@@ -53,7 +52,7 @@ export const Gallery: React.FC = () => {
       </section>
 
       {/* Filter Tabs */}
-      <section className="py-12 bg-brand-beige border-b border-brand-forest/5 sticky top-[72px] z-30 shadow-sm glass-nav">
+      <section className="py-12 bg-brand-beige border-b border-brand-plum/5 sticky top-[72px] z-30 shadow-sm glass-nav">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((cat) => (
@@ -62,8 +61,8 @@ export const Gallery: React.FC = () => {
                 onClick={() => setActiveFilter(cat.id)}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 active:scale-95 ${
                   activeFilter === cat.id
-                    ? 'bg-brand-forest text-brand-beige shadow-md'
-                    : 'bg-white text-brand-forest hover:bg-brand-forest/5 border border-brand-forest/5'
+                    ? 'bg-brand-plum text-brand-beige shadow-md'
+                    : 'bg-white text-brand-plum hover:bg-brand-plum/5 border border-brand-plum/5'
                 }`}
               >
                 {cat.icon}
@@ -76,10 +75,11 @@ export const Gallery: React.FC = () => {
 
       {/* Masonry-like Grid + PhotoProvider Lightbox */}
       <section className="py-20 bg-brand-warmwhite min-h-[50vh]">
+        <h2 className="sr-only">Photo gallery</h2>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PhotoProvider
             maskOpacity={0.9}
-            loadingElement={<div className="animate-spin rounded-full h-8 w-8 border-t-2 border-brand-emerald" />}
+            loadingElement={<div className="animate-spin rounded-full h-8 w-8 border-t-2 border-brand-violet" />}
           >
             <motion.div 
               layout
@@ -100,7 +100,7 @@ export const Gallery: React.FC = () => {
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.4 }}
                         key={item.id}
-                        className="relative overflow-hidden rounded-2xl shadow-sm border border-brand-forest/5 bg-white aspect-[4/3]"
+                        className="relative overflow-hidden rounded-2xl shadow-sm border border-brand-plum/5 bg-white aspect-[4/3]"
                       >
                         <ImageSlot
                           title={item.title}
@@ -121,7 +121,7 @@ export const Gallery: React.FC = () => {
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.4 }}
                       key={item.id}
-                      className="group cursor-pointer relative overflow-hidden rounded-2xl shadow-sm border border-brand-forest/5 bg-white aspect-[4/3]"
+                      className="group cursor-pointer relative overflow-hidden rounded-2xl shadow-sm border border-brand-plum/5 bg-white aspect-[4/3]"
                     >
                       <PhotoView src={imageSrc}>
                         <div className="w-full h-full relative overflow-hidden">
@@ -134,8 +134,8 @@ export const Gallery: React.FC = () => {
                           />
                           
                           {/* Hover Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-brand-forest/90 via-brand-forest/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                            <span className="text-[10px] text-brand-emerald font-bold font-body uppercase tracking-wider mb-1">
+                          <div className="absolute inset-0 bg-gradient-to-t from-brand-plum/90 via-brand-plum/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span className="text-[10px] text-brand-violet font-bold font-body uppercase tracking-wider mb-1">
                               {item.category}
                             </span>
                             <h3 className="font-heading text-base font-bold text-white leading-tight">
@@ -156,9 +156,9 @@ export const Gallery: React.FC = () => {
 
           {filteredData.length === 0 && (
             <div className="text-center py-20">
-              <Heart className="h-12 w-12 text-brand-forest/20 mx-auto mb-4" />
-              <p className="font-heading text-lg font-bold text-brand-forest/60">No photos in this category yet</p>
-              <p className="font-body text-xs text-brand-forest/40">Check back soon as we update our reports weekly.</p>
+              <Heart className="h-12 w-12 text-brand-plum/20 mx-auto mb-4" />
+              <p className="font-heading text-lg font-bold text-brand-plum/60">No photos in this category yet</p>
+              <p className="font-body text-xs text-brand-plum/40">Check back soon as we update our reports weekly.</p>
             </div>
           )}
         </div>

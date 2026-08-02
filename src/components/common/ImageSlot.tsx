@@ -70,11 +70,11 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
 
   return (
     <div
-      className={`${frame} bg-brand-lightgray border border-dashed border-brand-forest/20 flex flex-col justify-between p-6`}
+      className={`${frame} bg-brand-lightgray border border-dashed border-brand-plum/20 flex flex-col justify-between p-6`}
       role="img"
       aria-label={alt}
     >
-      <div className="flex items-center space-x-2 text-brand-forest/40">
+      <div className="flex items-center space-x-2 text-brand-plum/40">
         <Camera className="h-4 w-4" />
         <span className="font-body text-[10px] font-semibold uppercase tracking-wider">
           Photograph needed
@@ -83,16 +83,16 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
 
       <div className="space-y-1">
         {title && (
-          <h3 className="font-heading text-lg md:text-xl text-brand-forest font-bold leading-tight">
+          <h3 className="font-heading text-lg md:text-xl text-brand-plum font-bold leading-tight">
             {title}
           </h3>
         )}
         {subtitle && (
-          <p className="font-body text-xs md:text-sm text-brand-forest/75 leading-relaxed max-w-[95%]">
+          <p className="font-body text-xs md:text-sm text-brand-plum/80 leading-relaxed max-w-[95%]">
             {subtitle}
           </p>
         )}
-        <p className="font-body text-[10px] text-brand-forest/45 pt-2 break-all">
+        <p className="font-body text-[10px] text-brand-plum/45 pt-2 break-all">
           <span className="font-mono">{filename}</span>
           <span className="block italic mt-0.5">alt: {alt}</span>
         </p>

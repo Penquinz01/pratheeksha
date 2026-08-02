@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { organizationDetails } from '../../data/content';
+import { organizationDetails, fullTagline } from '../../data/content';
 
 interface SEOProps {
   title: string;
@@ -13,7 +13,9 @@ interface SEOProps {
 
 export const SEO: React.FC<SEOProps> = ({
   title,
-  description = "Pratheeksha Foundation is a registered NGO in Wayanad, Kerala dedicated to safe housing, education sponsorships, healthcare, food security, and livelihood rehabilitation.",
+  // Defaults to the public tagline so the <title>, meta description and the
+  // Open Graph / Twitter cards below all speak with one voice.
+  description = fullTagline,
   canonicalUrl = window.location.href,
   ogType = "website",
   ogImage = "https://pratheekshafoundation.org/og-cover.jpg",
@@ -49,7 +51,7 @@ export const SEO: React.FC<SEOProps> = ({
       organizationDetails.socials.twitter,
       organizationDetails.socials.youtube
     ],
-    "description": organizationDetails.tagline
+    "description": fullTagline
   };
 
   return (
