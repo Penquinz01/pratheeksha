@@ -3,21 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Heart, Grid, Home, BookOpen, HeartPulse, ShieldAlert } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
+import { ImageSlot } from '../components/common/ImageSlot';
 import { galleryData } from '../data/content';
 
 import 'react-photo-view/dist/react-photo-view.css';
 
-// Rich Unsplash images representing actual NGO works for premium visual presentation
-const galleryImages: Record<string, string> = {
-  g1: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80", // brick laying/housing
-  g2: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80", // kids school bags
-  g3: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80", // doctor medical checkup
-  g4: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80", // volunteer loading rations
-  g5: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80", // children studying/tutoring
-  g6: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=800&q=80", // rural home/housing
-  g7: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80", // woman sewing/tailoring
-  g8: "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?auto=format&fit=crop&w=800&q=80"  // kids joy/play
-};
+// Real photographs of our own work only. This gallery previously showed stock
+// library pictures, which misrepresented the projects it claimed to document.
+// To publish a photo, drop the file named in galleryData[].imageFile into
+// /public/images/ and map it here; until then the card renders a labelled slot.
+// See ImageSlot for the photography direction.
+const galleryImages: Record<string, string> = {};
 
 export const Gallery: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -91,7 +87,31 @@ export const Gallery: React.FC = () => {
             >
               <AnimatePresence mode="popLayout">
                 {filteredData.map((item) => {
-                  const imageSrc = galleryImages[item.id] || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80";
+                  const imageSrc = galleryImages[item.id];
+
+                  // No photograph yet: show a labelled slot, and no lightbox,
+                  // since there is nothing to enlarge.
+                  if (!imageSrc) {
+                    return (
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.4 }}
+                        key={item.id}
+                        className="relative overflow-hidden rounded-2xl shadow-sm border border-brand-forest/5 bg-white aspect-[4/3]"
+                      >
+                        <ImageSlot
+                          title={item.title}
+                          subtitle={item.description}
+                          filename={item.imageFile}
+                          alt={item.imageAlt}
+                          aspectRatio="aspect-[4/3]"
+                        />
+                      </motion.div>
+                    );
+                  }
 
                   return (
                     <motion.div

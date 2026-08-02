@@ -25,6 +25,18 @@ export interface OrganizationDetails {
   footerQuote: string;
 }
 
+export interface LeaderDetails {
+  name: string;
+  role: string;
+  bio: string;
+}
+
+/** Compact roster entry: name and role only, no biography. */
+export interface CommitteeMember {
+  name: string;
+  role: string;
+}
+
 export interface ProgramDetails {
   id: string;
   title: string;
@@ -32,7 +44,10 @@ export interface ProgramDetails {
   longDescription: string;
   ctaText: string;
   ctaLink: string;
-  imagePlaceholderColor: string; // Used to generate beautiful gradient backgrounds for placeholders
+  /** Filename of the real photograph this programme is waiting on. */
+  imageFile: string;
+  /** Alt text for that photograph. */
+  imageAlt: string;
 }
 
 export interface PillarDetails {
@@ -122,13 +137,66 @@ export const aboutContent = {
     { title: "Empowerment over Charity", description: "We provide immediate relief while actively building structures (education, training) that support long-term self-sufficiency." },
     { title: "Inclusive Care", description: "Our support reaches the most remote tribal colonies and marginalized groups, bridging the geographic barriers of Wayanad." }
   ],
+  // Official board, per the 2025 Annual Report. Names, roles and the order in
+  // which they appear are reproduced exactly as published and must not be
+  // reformatted, reordered or transliterated.
   leadership: [
-    { name: "Dr. K. R. Madhavan", role: "President & Chief Trustee", bio: "A retired medical practitioner with over 35 years of public health service in Wayanad's tribal belts." },
-    { name: "Siddique Valappil", role: "General Secretary & Founder", bio: "Social entrepreneur who has dedicated a decade to designing community housing and rehabilitation systems." },
-    { name: "Anjali S. Nair", role: "Treasurer & Director of Education Programs", bio: "Academician and child development specialist managing scholarships and learning centers." },
-    { name: "Father Sunny Joseph", role: "Advisory Board Member", bio: "Community worker actively coordinating rehabilitation projects for families affected by landslides and natural disasters." }
-  ]
+    {
+      name: "F.M. Farook",
+      role: "Founder",
+      bio: "Visionary leader who laid the foundation for Pratheeksha's compassionate grassroots interventions across Wayanad."
+    },
+    {
+      name: "Abdul Salam Mongam",
+      role: "Chairman",
+      bio: "Steering the strategic direction and governance of the foundation, ensuring transparency and long-term community impact."
+    },
+    {
+      name: "Faheem Puthusseri",
+      role: "President",
+      bio: "Leading executive operations and community welfare projects with a focus on sustainable development and dignity."
+    },
+    {
+      name: "Ali Kadavathooru",
+      role: "Vice President",
+      bio: "Overseeing program execution and field coordination across remote settlements in Wayanad."
+    },
+    {
+      name: "Siddiq Davari",
+      role: "General Secretary",
+      bio: "Managing organizational administration, partnership coordination, and operational integrity across all wings."
+    },
+    {
+      name: "Abdul Latheef",
+      role: "Joint Secretary",
+      bio: "Supporting administrative operations, event execution, and community engagement drives."
+    },
+    {
+      name: "Abid CA",
+      role: "Treasurer",
+      bio: "Managing financial allocation, auditing compliance, and direct resource disbursements with complete transparency."
+    }
+  ] as LeaderDetails[]
 };
+
+export const executiveCommittee: CommitteeMember[] = [
+  { name: "Abdul Gafoor Moulavi", role: "Executive Member (IT Department)" },
+  { name: "Rajkumar", role: "Executive Member (Accounts Department)" },
+  { name: "Samad Puliyampoyil", role: "Executive Member" },
+  { name: "PC. Ibrahim", role: "Executive Member" },
+  { name: "Safarullah Payanthoth", role: "Society Member" },
+  { name: "Hamsa Koya", role: "Society Member" },
+  { name: "Salman Faris", role: "Office Staff" }
+];
+
+export const ladiesWingLeadership: CommitteeMember[] = [
+  { name: "Basima Teacher & Haseena Latheef", role: "Executive Members (Education Board)" },
+  { name: "Shafeena Siddiq & Sajna Samad", role: "Executive Members (Noorul Qur'an)" },
+  { name: "Shaharban Abid", role: "Executive Member (Noorul Qur'an & Medical)" },
+  { name: "Ramla Safarullah", role: "Executive Member (Dress Distribution)" },
+  { name: "Subaida Ibrahim", role: "Executive Member (Tour & Recreation)" },
+  { name: "Jelisha Nazimudeen & Shareena Varadoor", role: "Educational Promoters" }
+];
 
 export const howWeWorkSteps = [
   { step: "01", title: "Identify", description: "Field volunteers and local leaders report vulnerable families, destitute individuals, or orphans in remote areas." },
@@ -142,38 +210,42 @@ export const programsList: ProgramDetails[] = [
   {
     id: "education",
     title: "Education Promise",
-    description: "Securing the academic future of children from orphaned and destitute homes.",
-    longDescription: "Under this initiative, we support children through custom scholarships, school kits (bags, books, uniforms), and digital learning aids. We also host free weekend tutoring and mentorship camps in rural Wayanad to ensure children do not drop out due to financial distress or lack of guidance.",
+    description: "Securing Futures Through Academic Support",
+    longDescription: "Believing that education is the greatest wealth, Pratheeksha allocates **35% of its total annual budget** directly to educational initiatives. We currently support **326 enrolled students** from Kindergarten to Post-Graduation and Civil Service (IAS) coaching. Beyond tuition aid, we distribute school bags, books, and supplies, while organizing career workshops, mentorship camps, and specialized coaching for high school and college students.",
     ctaText: "Sponsor a Child's Education",
     ctaLink: "/partnership#education-promise",
-    imagePlaceholderColor: "from-teal-800 to-emerald-600"
+    imageFile: "education-kit-distribution.jpg",
+    imageAlt: "Students receiving school kits at the start of the academic year"
   },
   {
     id: "healthcare",
     title: "Medical Relief & Care",
-    description: "Providing critical healthcare, life-saving medicines, and palliative support.",
-    longDescription: "Wayanad's hilly terrain isolates many from quality healthcare. We provide chronic patients and destitute seniors with monthly medical pensions, essential medicines delivered to their doorsteps, and emergency surgery sponsorships. We work closely with local hospitals to coordinate diagnostics and palliative support.",
+    description: "Critical Healthcare, Medicines & Palliative Support",
+    longDescription: "We extend vital medical aid to families facing debilitating health crises. Our team provides continuous home care, specialized equipment (such as wheelchairs), and monthly financial assistance to **12 bedridden patients**. Furthermore, we cover travel and chemotherapy expenses for cancer patients, support ongoing dialysis for kidney patients, and donate medical equipment (including dialysis machines) to local healthcare centers.",
     ctaText: "Support Healthcare Relief",
     ctaLink: "/partnership#health-relief",
-    imagePlaceholderColor: "from-emerald-900 to-teal-700"
+    imageFile: "palliative-care-home-visit.jpg",
+    imageAlt: "Volunteer medical team visiting a bedridden patient at home"
   },
   {
     id: "food-clothing",
     title: "Nutritional Security",
-    description: "Ensuring no family goes hungry with monthly survival grocery kits.",
-    longDescription: "Malnutrition is a major challenge in tribal settlements and low-income single-mother households. Our food security drive delivers comprehensive grocery kits containing rice, lentils, spices, tea, toiletries, and seasonal clothing to families with zero earning members or bedridden breadwinners.",
+    description: "Monthly Food Security & Family Ration",
+    longDescription: "Malnutrition and financial insecurity remain major hurdles for low-income households. We provide monthly grocery kits valued between ₹2,000 and ₹3,000 to **190 categorized families** across Mananthavady, Kalpetta, and Vaduvanchal, empowering beneficiaries to select their own essential items from local partner stores. Additionally, top-tier vulnerable families receive a monthly cash stipend to ensure household stability.",
     ctaText: "Sponsor a Family Ration",
     ctaLink: "/partnership#adopt-family",
-    imagePlaceholderColor: "from-teal-700 to-emerald-800"
+    imageFile: "monthly-ration-drive.jpg",
+    imageAlt: "Volunteers loading monthly grocery kits for distribution"
   },
   {
     id: "housing",
     title: "Safe Home Mission",
-    description: "Building resilient homes for families living in dilapidated shacks.",
-    longDescription: "During heavy monsoons in Wayanad, thousands of lives are endangered by fragile dwellings. The Safe Home Mission constructs robust, concrete houses featuring two rooms, a kitchen, and a toilet. We focus on single mothers, widows, and families with disabled members who are currently living under tarpaulins or decaying mud walls.",
+    description: "Constructing Dignified & Resilient Housing",
+    longDescription: "A secure home is the foundation of health and safety. To date, the Safe Home Mission has constructed and handed over **35 storm-resilient concrete houses** to widows, single mothers, and families with disabled members across Wayanad. Over **90 additional housing construction, repair, and maintenance projects** are currently underway, accompanied by complete legal, registration, and basic furnishing support.",
     ctaText: "Partner in Housing Mission",
     ctaLink: "/partnership#safe-home",
-    imagePlaceholderColor: "from-emerald-800 to-emerald-950"
+    imageFile: "safe-home-key-handover.jpg",
+    imageAlt: "Family receiving keys to their new concrete home"
   },
   {
     id: "recreation",
@@ -182,7 +254,8 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Orphaned children and those living in extreme poverty carry significant emotional weight. Through our Recreation initiative, we build community playground spaces, organize annual summer joy camps, take children on educational excursions, and run art and theater workshops to foster creativity, confidence, and psychological healing.",
     ctaText: "Sponsor Children's Joy",
     ctaLink: "/partnership#children-joy",
-    imagePlaceholderColor: "from-teal-900 to-emerald-600"
+    imageFile: "childrens-joy-camp.jpg",
+    imageAlt: "Children taking part in a games and painting workshop"
   },
   {
     id: "training-faith",
@@ -191,7 +264,48 @@ export const programsList: ProgramDetails[] = [
     longDescription: "True dignity comes from self-reliance. We organize vocational training courses in tailoring, organic farming, livestock rearing, and computer literacy for single mothers and unemployed youth. Along with skills, we offer emotional counseling and motivational workshops to build internal resilience and faith in a brighter tomorrow.",
     ctaText: "Become a Capacity Builder",
     ctaLink: "/partnership#capacity-builder",
-    imagePlaceholderColor: "from-emerald-950 to-teal-800"
+    imageFile: "vocational-tailoring-training.jpg",
+    imageAlt: "Women at work during a tailoring training session"
+  },
+  {
+    id: "rehab",
+    title: "Pratheeksha Rehab (Wayanad Disaster Relief)",
+    description: "Emergency Disaster Response & Township Project",
+    longDescription: "In response to the devastating July 2024 Chooralmala landslide, Pratheeksha launched a major rehabilitation initiative. We purchased **3.25 acres of land in Thrikkaipetta** to construct a planned township featuring **33 modern homes** to safely relocate and rebuild the lives of displaced survivor families.",
+    ctaText: "Support the Rehab Township",
+    ctaLink: "/partnership",
+    imageFile: "rehab-township-thrikkaipetta-site.jpg",
+    imageAlt: "The Thrikkaipetta site where the rehabilitation township is being built"
+  },
+  {
+    id: "sahara-bharat",
+    title: "Sahara Bharat Foundation",
+    description: "Care & Rehabilitation for Differently-Abled Individuals",
+    longDescription: "Operated in collaboration with the Wayanad Muslim Orphanage (WMO), this specialized center provides housing, comprehensive education, vocational training, and medical rehabilitation for over **140 differently-abled residents**.",
+    ctaText: "Partner with Sahara Bharat",
+    ctaLink: "/partnership",
+    imageFile: "sahara-bharat-care-centre.jpg",
+    imageAlt: "Staff and residents at the Sahara Bharat care centre"
+  },
+  {
+    id: "noorul-quran",
+    title: "Noorul Qur'an",
+    description: "Islamic education, now in its 5th season.",
+    longDescription: "Our Islamic education initiative, now successfully running its 5th season.",
+    ctaText: "Support Noorul Qur'an",
+    ctaLink: "/partnership",
+    imageFile: "noorul-quran-class-session.jpg",
+    imageAlt: "Students attending a Noorul Qur'an class session"
+  },
+  {
+    id: "ladies-wing",
+    title: "Ladies Wing Community Outreach",
+    description: "Direct Grassroots Family Support & Counseling",
+    longDescription: "Our dedicated Ladies Wing conducts direct home visits, family counseling, and dispute resolution to empower widows and isolated women. Beyond emotional support, the wing identifies critical household needs, such as supplying power inverters to off-grid families and organizing seasonal clothing distribution drives for **190 households**.",
+    ctaText: "Support the Ladies Wing",
+    ctaLink: "/partnership",
+    imageFile: "ladies-wing-household-visit.jpg",
+    imageAlt: "Ladies Wing members meeting a family during a household visit"
   }
 ];
 
@@ -239,7 +353,8 @@ export const housingHighlight = {
   description: "A home is the foundation of health, education, and safety. Under our Safe Home Mission, we replace leaky plastic-sheet shacks with storm-resilient concrete houses for widows, single mothers, and families with bedridden patients. Give a family the safety they deserve.",
   ctaText: "Support a Safe Home",
   ctaLink: "/partnership#safe-home",
-  imagePlaceholderColor: "from-brand-forest to-brand-emerald-dark"
+  imageFile: "safe-home-key-handover.jpg",
+  imageAlt: "Family receiving keys to their new concrete home"
 };
 
 export const testimonials: Testimonial[] = [
@@ -391,61 +506,82 @@ export const annualReportAchievements: AnnualReportAchievement[] = [
   }
 ];
 
-export const galleryData = [
+export interface GalleryItem {
+  id: string;
+  category: string;
+  title: string;
+  /** Caption shown on the card. */
+  description: string;
+  /** Filename of the real photograph this card is waiting on. */
+  imageFile: string;
+  imageAlt: string;
+}
+
+// The first four items are the set previewed on the Home page. Their captions
+// are the approved 2025 Annual Report subtitles and are reproduced verbatim.
+export const galleryData: GalleryItem[] = [
   {
     id: "g1",
     category: "housing",
     title: "Safe Home Mission Handover",
-    description: "Sunitha and her children receiving the key to their newly constructed concrete home in Meppadi.",
-    imagePlaceholderColor: "from-teal-800 to-emerald-950"
+    description: "35 secure, concrete homes completed and handed over to vulnerable families in Wayanad.",
+    imageFile: "safe-home-key-handover.jpg",
+    imageAlt: "Family receiving keys to their new concrete home"
   },
   {
     id: "g2",
     category: "education",
     title: "Annual Education Kit Distribution",
-    description: "School bags, notebooks, and umbrella kits distributed to children at the starting of the academic year.",
-    imagePlaceholderColor: "from-emerald-700 to-teal-800"
+    description: "Providing academic kits, uniforms, and scholarships to 326 enrolled students.",
+    imageFile: "education-kit-distribution.jpg",
+    imageAlt: "Students receiving school kits at the start of the academic year"
   },
   {
     id: "g3",
     category: "healthcare",
-    title: "Palliative Care Home Visits",
-    description: "Our volunteer medical team delivering medicines and check-ups to elderly bedridden patients in Muttil.",
-    imagePlaceholderColor: "from-emerald-800 to-teal-900"
+    title: "Palliative Care & Bedridden Support",
+    description: "Delivering continuous home visits, medical supplies, and wheelchairs to 12 bedridden patients.",
+    imageFile: "palliative-care-home-visit.jpg",
+    imageAlt: "Volunteer medical team visiting a bedridden patient at home"
   },
   {
     id: "g4",
     category: "community",
-    title: "Monthly Ration Drive",
-    description: "Volunteers loading grocery kits for single-mother households in Vythiri tribal settlements.",
-    imagePlaceholderColor: "from-teal-950 to-emerald-850"
+    title: "Monthly Ration & Stipend Drive",
+    description: "Supplying dignity-first monthly groceries and stipends to 190 registered families.",
+    imageFile: "monthly-ration-drive.jpg",
+    imageAlt: "Volunteers loading monthly grocery kits for distribution"
   },
   {
     id: "g5",
     category: "education",
     title: "Weekend Mentorship Camp",
     description: "Volunteer teachers conducting creative learning and career guidance classes for high schoolers.",
-    imagePlaceholderColor: "from-teal-800 to-emerald-600"
+    imageFile: "weekend-mentorship-camp.jpg",
+    imageAlt: "Volunteer teacher leading a mentorship class for school students"
   },
   {
     id: "g6",
     category: "housing",
     title: "Safe Home Construction Site",
     description: "Volunteers and local masons joining hands to lay the foundation for a widow's new house.",
-    imagePlaceholderColor: "from-emerald-900 to-emerald-750"
+    imageFile: "safe-home-construction-site.jpg",
+    imageAlt: "Masons and volunteers laying the foundation of a new house"
   },
   {
     id: "g7",
     category: "community",
     title: "Vocational Tailoring Graduation",
-    description: "Socio-economically backward women receiving tailoring completion certificates and free sewing units.",
-    imagePlaceholderColor: "from-emerald-850 to-teal-800"
+    description: "Women receiving tailoring completion certificates and sewing units.",
+    imageFile: "vocational-tailoring-graduation.jpg",
+    imageAlt: "Women receiving certificates at a tailoring course graduation"
   },
   {
     id: "g8",
     category: "community",
     title: "Annual Children's Joy Camp",
     description: "A day filled with games, music, and painting workshops for orphan children.",
-    imagePlaceholderColor: "from-teal-900 to-emerald-700"
+    imageFile: "childrens-joy-camp.jpg",
+    imageAlt: "Children taking part in a games and painting workshop"
   }
 ];

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Heart, ArrowRight, Home as HomeIcon, ChevronRight } from 'lucide-react';
 
 import { SEO } from '../components/common/SEO';
-import { PlaceholderImage } from '../components/common/PlaceholderImage';
+import { ImageSlot } from '../components/common/ImageSlot';
 import { 
   heroContent, 
   aboutContent, 
@@ -150,9 +150,9 @@ export const Home: React.FC = () => {
               className="lg:col-span-5 relative"
             >
               <div className="absolute inset-0 bg-brand-forest/5 rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none" />
-              <PlaceholderImage 
-                title="Wayanad Community Engagement" 
-                category="foundation" 
+              <ImageSlot
+                filename="wayanad-community-engagement.jpg"
+                alt="Field team meeting families in a Wayanad settlement"
                 aspectRatio="aspect-[4/3]"
                 className="shadow-xl"
               />
@@ -268,9 +268,9 @@ export const Home: React.FC = () => {
               className="lg:col-span-5"
             >
               <div className="relative p-2 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm shadow-2xl">
-                <PlaceholderImage 
-                  title="Safe Home Mission Handover" 
-                  category="housing" 
+                <ImageSlot
+                  filename={housingHighlight.imageFile}
+                  alt={housingHighlight.imageAlt}
                   aspectRatio="aspect-video"
                 />
               </div>
@@ -377,9 +377,11 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {galleryData.slice(0, 4).map((g) => (
               <div key={g.id} className="relative group overflow-hidden rounded-2xl shadow-sm">
-                <PlaceholderImage 
-                  title={g.title} 
-                  category={g.category} 
+                <ImageSlot
+                  title={g.title}
+                  subtitle={g.description}
+                  filename={g.imageFile}
+                  alt={g.imageAlt}
                   aspectRatio="aspect-[4/3]"
                 />
               </div>

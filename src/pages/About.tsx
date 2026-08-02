@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, Eye, Users, ShieldCheck } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
-import { PlaceholderImage } from '../components/common/PlaceholderImage';
+import { ImageSlot } from '../components/common/ImageSlot';
+import { executiveCommittee, ladiesWingLeadership } from '../data/content';
 import { aboutContent } from '../data/content';
 
 export const About: React.FC = () => {
@@ -72,9 +73,9 @@ export const About: React.FC = () => {
               variants={fadeInUp}
               className="relative p-2 bg-white rounded-3xl shadow-lg border border-brand-forest/5"
             >
-              <PlaceholderImage 
-                title="Siddique Valappil - Community House Construction" 
-                category="foundation" 
+              <ImageSlot
+                filename="community-house-construction.jpg"
+                alt="Volunteers and masons at work on a community house build"
                 aspectRatio="aspect-[4/3]"
               />
             </motion.div>
@@ -239,6 +240,38 @@ export const About: React.FC = () => {
                     {leader.bio}
                   </p>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Compact rosters: name and role only, no bios or avatars. */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+            {[
+              { heading: "Executive Committee & Department Leads", members: executiveCommittee },
+              { heading: "Ladies Wing Leadership", members: ladiesWingLeadership }
+            ].map((group) => (
+              <div
+                key={group.heading}
+                className="bg-white p-6 rounded-2xl border border-brand-forest/5 shadow-sm"
+              >
+                <h3 className="font-heading text-lg font-bold text-brand-forest leading-tight mb-5">
+                  {group.heading}
+                </h3>
+                <ul className="space-y-3">
+                  {group.members.map((member) => (
+                    <li
+                      key={member.name}
+                      className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 border-b border-brand-forest/5 pb-3 last:border-b-0 last:pb-0"
+                    >
+                      <span className="font-body text-sm font-semibold text-brand-forest">
+                        {member.name}
+                      </span>
+                      <span className="font-body text-xs text-brand-emerald sm:text-right shrink-0">
+                        {member.role}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

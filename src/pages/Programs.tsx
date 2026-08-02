@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar } from 'lucide-react';
+import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar, HardHat, Accessibility, BookOpen, Users } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
-import { PlaceholderImage } from '../components/common/PlaceholderImage';
+import { ImageSlot } from '../components/common/ImageSlot';
 import { programsList } from '../data/content';
+import { renderEmphasis } from '../lib/richText';
 
 export const Programs: React.FC = () => {
   const fadeInUp = {
@@ -27,6 +28,14 @@ export const Programs: React.FC = () => {
         return <Heart className="h-6 w-6" />;
       case 'training-faith':
         return <Calendar className="h-6 w-6" />;
+      case 'rehab':
+        return <HardHat className="h-6 w-6" />;
+      case 'sahara-bharat':
+        return <Accessibility className="h-6 w-6" />;
+      case 'noorul-quran':
+        return <BookOpen className="h-6 w-6" />;
+      case 'ladies-wing':
+        return <Users className="h-6 w-6" />;
       default:
         return <Heart className="h-6 w-6" />;
     }
@@ -75,9 +84,9 @@ export const Programs: React.FC = () => {
                   className={`lg:col-span-5 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
                 >
                   <div className="relative p-2 bg-white rounded-3xl shadow-md border border-brand-forest/5 group overflow-hidden">
-                    <PlaceholderImage
-                      title={prog.title}
-                      category={prog.id}
+                    <ImageSlot
+                      filename={prog.imageFile}
+                      alt={prog.imageAlt}
                       aspectRatio="aspect-[4/3]"
                     />
                   </div>
@@ -105,7 +114,7 @@ export const Programs: React.FC = () => {
                   </h2>
                   
                   <p className="font-body text-sm sm:text-base text-brand-forest/85 leading-relaxed">
-                    {prog.longDescription}
+                    {renderEmphasis(prog.longDescription)}
                   </p>
 
                   <div className="pt-2">
