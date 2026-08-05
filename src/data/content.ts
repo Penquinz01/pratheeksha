@@ -86,17 +86,6 @@ export interface CSRCard {
   description: string;
 }
 
-export interface VolunteerFAQ {
-  question: string;
-  answer: string;
-}
-
-export interface VolunteerJourneyStep {
-  step: string;
-  title: string;
-  description: string;
-}
-
 export interface AnnualReportAchievement {
   year: string;
   title: string;
@@ -147,9 +136,7 @@ export const heroContent = {
   // subheading takes the remainder rather than repeating it.
   supportingText: "Uplifting single-mother households, orphans, and chronic patients in the hill tracts of Wayanad.",
   primaryCtaText: "Become a Partner",
-  primaryCtaLink: "/partnership",
-  secondaryCtaText: "Volunteer",
-  secondaryCtaLink: "/volunteer"
+  primaryCtaLink: "/partnership"
 };
 
 export const aboutContent = {
@@ -468,7 +455,7 @@ export const milestonesAndVenues: MilestoneEntry[] = [
   {
     title: "Student Excursion Destinations",
     venue: "Wonderla Kochi and the Nefertiti cruise ship, Bolgatty Island",
-    link: { to: "/programs#tours", label: "Recreational & Educational Tours" }
+    link: { to: "/programs#tours", label: "Recreational & Educational Camps" }
   }
 ];
 
@@ -573,23 +560,13 @@ export const programsList: ProgramDetails[] = [
   },
   {
     id: "tours",
-    title: "Recreational & Educational Tours",
+    title: "Recreational & Educational Camps",
     description: "Mental Well-being & Holistic Youth Exposure",
     longDescription: "To support emotional wellness and child development, Pratheeksha organizes multi-day educational excursions. Highlights include bringing **110 participants** — including students and volunteers — on trips to Wonderla Kochi and sea voyages aboard the Nefertiti ship.",
     ctaText: "Sponsor a Student Tour",
     ctaLink: "/partnership",
     imageFile: "educational-tour-group.jpg",
     imageAlt: "Students and volunteers on an educational excursion"
-  },
-  {
-    id: "ladies-wing",
-    title: "Ladies Wing Community Outreach",
-    description: "Direct Grassroots Family Support & Counseling",
-    longDescription: "Our dedicated Ladies Wing conducts direct home visits, family counseling, and dispute resolution to empower widows and isolated women. Beyond emotional support, the wing identifies critical household needs, such as supplying power inverters to off-grid families and organizing seasonal clothing distribution drives for **190 households**.",
-    ctaText: "Support the Ladies Wing",
-    ctaLink: "/partnership",
-    imageFile: "ladies-wing-household-visit.jpg",
-    imageAlt: "Ladies Wing members meeting a family during a household visit"
   }
 ];
 
@@ -711,52 +688,6 @@ export const csrCards: CSRCard[] = [
   }
 ];
 
-export const volunteerFAQs: VolunteerFAQ[] = [
-  {
-    question: "Do I need special skills to volunteer?",
-    answer: "No! We welcome anyone with a compassionate heart. Whether you want to tutor kids, write reports, assist in medical drives, drive vehicles, design digital posters, or carry bricks for housing projects, we have a place for you."
-  },
-  {
-    question: "What is the time commitment required?",
-    answer: "It is highly flexible. Some volunteers contribute 2 hours every weekend by mentoring kids, while others join our field surveys once a month. You can choose a commitment level that matches your schedule."
-  },
-  {
-    question: "Can I volunteer remotely?",
-    answer: "Yes. If you have skills in graphic design, translation (English to Malayalam), social media writing, report drafting, or spreadsheet audit support, you can contribute from anywhere in the world."
-  },
-  {
-    question: "Do you offer certificates for students?",
-    answer: "Yes, we provide official volunteer completion certificates and reference letters detailing your hours, tasks, and project impact, which are highly recognized for university applications and jobs."
-  },
-  {
-    question: "How does the selection process work?",
-    answer: "Once you fill out the volunteer sign-up form, our coordinator will schedule a brief phone call to understand your interests and align you with an ongoing project. You will then be invited to our volunteer orientation session."
-  }
-];
-
-export const volunteerJourney: VolunteerJourneyStep[] = [
-  {
-    step: "1",
-    title: "Sign Up Online",
-    description: "Submit a simple form expressing your interests, location, and available time."
-  },
-  {
-    step: "2",
-    title: "Orientation Call",
-    description: "Speak with our volunteer coordinator to match your skills with current community needs."
-  },
-  {
-    step: "3",
-    title: "Orientation & Training",
-    description: "Receive brief guidance on our values, safety protocols, and direct-to-home community model."
-  },
-  {
-    step: "4",
-    title: "Serve & Transform",
-    description: "Engage in teaching, medical relief, housing construction, or remote support and make a visible impact."
-  }
-];
-
 export const annualReportAchievements: AnnualReportAchievement[] = [
   {
     year: "2015",
@@ -838,27 +769,11 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: "g5",
-    category: "education",
-    title: "Weekend Mentorship Camp",
-    description: "Volunteer teachers conducting creative learning and career guidance classes for high schoolers.",
-    imageFile: "weekend-mentorship-camp.jpg",
-    imageAlt: "Volunteer teacher leading a mentorship class for school students"
-  },
-  {
-    id: "g6",
-    category: "housing",
-    title: "Safe Home Construction Site",
-    description: "Volunteers and local masons joining hands to lay the foundation for a widow's new house.",
-    imageFile: "safe-home-construction-site.jpg",
-    imageAlt: "Masons and volunteers laying the foundation of a new house"
-  },
-  {
-    id: "g7",
     category: "community",
-    title: "Vocational Tailoring Graduation",
-    description: "Women receiving tailoring completion certificates and sewing units.",
-    imageFile: "vocational-tailoring-graduation.jpg",
-    imageAlt: "Women receiving certificates at a tailoring course graduation"
+    title: "Family Meet",
+    description: "Beneficiary families, trustees, and volunteers together at the 18th Annual Meet, Destiny Lounge, Kalpetta.",
+    imageFile: "family-meet.jpg",
+    imageAlt: "Beneficiary families and volunteers gathered at the annual family meet"
   },
   {
     id: "g8",
@@ -867,5 +782,21 @@ export const galleryData: GalleryItem[] = [
     description: "A day filled with games, music, and painting workshops for orphan children.",
     imageFile: "childrens-joy-camp.jpg",
     imageAlt: "Children taking part in a games and painting workshop"
+  },
+  {
+    id: "g9",
+    category: "community",
+    title: "Dress Distribution Drive",
+    description: "Seasonal clothing distribution reaching 190 registered households, coordinated by the Ladies Wing.",
+    imageFile: "dress-distribution-drive.jpg",
+    imageAlt: "Families receiving new clothing at a dress distribution drive"
+  },
+  {
+    id: "g10",
+    category: "education",
+    title: "Free Student Tours",
+    description: "Free day trips and excursions organised through the year for the children we support, with volunteers accompanying every group.",
+    imageFile: "student-excursion-group.jpg",
+    imageAlt: "Students and volunteers on an educational excursion"
   }
 ];

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Texture for the large flat plum surfaces (page heroes, the volunteer CTA,
+ * Texture for the large flat plum surfaces (page heroes, the final contact CTA,
  * the quote banner). Purely decorative: `aria-hidden`, `pointer-events-none`,
  * and it never carries meaning that isn't also in the text.
  *

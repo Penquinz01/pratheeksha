@@ -18,7 +18,6 @@ export const Footer: React.FC = () => {
 
   const supportLinks = [
     { name: 'Partner CSR', path: '/partnership' },
-    { name: 'Volunteer', path: '/volunteer' },
     { name: 'Annual Report', path: '/annual-report' },
     { name: 'Contact Us', path: '/contact' },
   ];

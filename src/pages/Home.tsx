@@ -92,26 +92,8 @@ export const Home: React.FC = () => {
             >
               {heroContent.primaryCtaText}
             </Link>
-            <Link
-              to={heroContent.secondaryCtaLink}
-              className="w-full sm:w-auto bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/40 px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0"
-            >
-              {heroContent.secondaryCtaText}
-            </Link>
           </motion.div>
 
-          {/* Scroll Indicator */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6, y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer hidden md:block"
-            onClick={() => document.getElementById('about-preview')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            <div className="w-6 h-10 border border-brand-beige/30 rounded-full flex justify-center p-1">
-              <div className="w-1.5 h-3 bg-brand-violet rounded-full" />
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -361,30 +343,6 @@ export const Home: React.FC = () => {
             {successStories.slice(0, 3).map((story) => (
               <StoryQuote key={story.id} story={story} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Volunteer CTA Section */}
-      <section className="py-24 bg-brand-plum text-brand-beige relative overflow-hidden">
-        <PlumBackdrop glow="top-right" rings={false} intensity="subtle" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <span className="text-brand-violet-light font-semibold uppercase tracking-wider text-xs font-body block">
-            Make A Difference
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-            Help Us Bring Light to Wayanad
-          </h2>
-          <p className="font-body text-base md:text-lg text-brand-beige/85 max-w-2xl mx-auto leading-relaxed">
-            Your time, skills, and energy can change lives. From teaching orphan kids to survey-work in tribal hamlets, we need volunteers who believe in human dignity.
-          </p>
-          <div className="pt-4">
-            <Link
-              to="/volunteer"
-              className="bg-brand-violet text-white hover:bg-brand-violet-dark px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-brand-violet/10 hover:-translate-y-0.5 active:translate-y-0"
-            >
-              Join Our Volunteer Team
-            </Link>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar, HardHat, Accessibility, BookOpen, Users, Bus } from 'lucide-react';
+import { GraduationCap, Stethoscope, Apple, ShieldAlert, Heart, Calendar, HardHat, Accessibility, BookOpen, Bus } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
 import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { ImageSlot } from '../components/common/ImageSlot';
@@ -36,8 +36,6 @@ export const Programs: React.FC = () => {
         return <Accessibility className="h-6 w-6" />;
       case 'noorul-quran':
         return <BookOpen className="h-6 w-6" />;
-      case 'ladies-wing':
-        return <Users className="h-6 w-6" />;
       case 'tours':
         return <Bus className="h-6 w-6" />;
       default:

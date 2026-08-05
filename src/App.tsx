@@ -15,7 +15,6 @@ import { Gallery } from './pages/Gallery';
 import { Testimonials } from './pages/Testimonials';
 import { Stories } from './pages/Stories';
 import { Partnership } from './pages/Partnership';
-import { Volunteer } from './pages/Volunteer';
 import { AnnualReport } from './pages/AnnualReport';
 import { Contact } from './pages/Contact';
 
@@ -39,7 +38,6 @@ function App() {
               <Route path="/testimonials" element={<Testimonials />} />
               <Route path="/stories" element={<Stories />} />
               <Route path="/partnership" element={<Partnership />} />
-              <Route path="/volunteer" element={<Volunteer />} />
               <Route path="/annual-report" element={<AnnualReport />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
