@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Camera originals for the committee portraits (~25 MB, two of them 5520x3680).
+# The web-sized versions in public/team are what the site uses and what ships.
+# Delete this line if you want the originals in version control.
+source-photos/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

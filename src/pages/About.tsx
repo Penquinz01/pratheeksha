@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Target, Eye, Users, ShieldCheck, MapPin } from 'lucide-react';
+import { Target, Eye, ShieldCheck, MapPin } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
 import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { ImageSlot } from '../components/common/ImageSlot';
@@ -232,10 +232,17 @@ export const About: React.FC = () => {
                 className="bg-white p-6 rounded-2xl border border-brand-plum/5 shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow"
               >
                 <div className="space-y-4">
-                  {/* Decorative Profile Placeholder */}
-                  <div className="w-full aspect-square rounded-xl bg-gradient-to-tr from-brand-plum/90 to-brand-violet/70 flex items-center justify-center text-white relative overflow-hidden">
-                    <Users className="h-10 w-10 text-brand-beige opacity-40 group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  {/* The gradient stays underneath the portrait so a missing file
+                      degrades to the old placeholder shape rather than a gap.
+                      object-top keeps heads in frame when a tall portrait is
+                      cropped to the square. */}
+                  <div className="w-full aspect-square rounded-xl bg-linear-to-tr from-brand-plum/90 to-brand-violet/70 relative overflow-hidden">
+                    <img
+                      src={leader.photo}
+                      alt={leader.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
                   <div>
                     <h3 className="font-heading text-lg font-bold text-brand-plum leading-tight">
@@ -253,7 +260,9 @@ export const About: React.FC = () => {
             ))}
           </div>
 
-          {/* Compact rosters: name and role only, no bios or avatars. */}
+          {/* Compact rosters: portrait, name and role — no bios. Several lines
+              name two people sharing one role, so each renders its own thumbnail
+              in published order. */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
             {[
               { heading: "Executive Committee & Department Leads", members: executiveCommittee },
@@ -270,13 +279,29 @@ export const About: React.FC = () => {
                   {group.members.map((member) => (
                     <li
                       key={member.name}
-                      className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 border-b border-brand-plum/5 pb-3 last:border-b-0 last:pb-0"
+                      className="flex items-center gap-3 border-b border-brand-plum/5 pb-3 last:border-b-0 last:pb-0"
                     >
-                      <span className="font-body text-sm font-semibold text-brand-plum">
-                        {member.name}
+                      {/* Focal point a quarter down rather than object-top:
+                          several of these are full-length shots where the top
+                          square of the frame is sky, not a face. */}
+                      <span className="flex shrink-0 -space-x-2">
+                        {member.photos.map((photo) => (
+                          <img
+                            key={photo.src}
+                            src={photo.src}
+                            alt={photo.name}
+                            loading="lazy"
+                            className="h-10 w-10 rounded-full object-cover object-[50%_25%] bg-brand-lightgray ring-2 ring-white"
+                          />
+                        ))}
                       </span>
-                      <span className="font-body text-xs text-brand-violet sm:text-right shrink-0">
-                        {member.role}
+                      <span className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 grow min-w-0">
+                        <span className="font-body text-sm font-semibold text-brand-plum">
+                          {member.name}
+                        </span>
+                        <span className="font-body text-xs text-brand-violet sm:text-right shrink-0">
+                          {member.role}
+                        </span>
                       </span>
                     </li>
                   ))}

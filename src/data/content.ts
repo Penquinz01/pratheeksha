@@ -29,12 +29,26 @@ export interface LeaderDetails {
   name: string;
   role: string;
   bio: string;
+  /** Portrait under /public/team. */
+  photo: string;
+}
+
+/**
+ * One person's portrait. Several roster lines below name two people who share a
+ * single role, so photographs are a list rather than one field — the published
+ * label stays exactly as printed while each face still gets its own alt text.
+ */
+export interface MemberPhoto {
+  src: string;
+  /** The individual pictured, which may be only half of the roster label. */
+  name: string;
 }
 
 /** Compact roster entry: name and role only, no biography. */
 export interface CommitteeMember {
   name: string;
   role: string;
+  photos: MemberPhoto[];
 }
 
 export interface ProgramDetails {
@@ -153,62 +167,136 @@ export const aboutContent = {
   // Official board, per the 2025 Annual Report. Names, roles and the order in
   // which they appear are reproduced exactly as published and must not be
   // reformatted, reordered or transliterated.
+  //
+  // Portraits come from the foundation's own supplied set. Several source files
+  // spell a name differently from the published roster (Pudusseri/Puthusseri,
+  // dhavari/Davari, bhasima/Basima, jeleesha/Jelisha); the published spelling
+  // wins in the copy, and /public/team filenames follow it so the pairing is
+  // readable at a glance.
   leadership: [
     {
       name: "F.M. Farook",
       role: "Founder",
-      bio: "Visionary leader who laid the foundation for Pratheeksha's compassionate grassroots interventions across Wayanad."
+      bio: "Visionary leader who laid the foundation for Pratheeksha's compassionate grassroots interventions across Wayanad.",
+      photo: "/team/fm-farook.jpg"
     },
     {
       name: "Abdul Salam Mongam",
       role: "Chairman",
-      bio: "Steering the strategic direction and governance of the foundation, ensuring transparency and long-term community impact."
+      bio: "Steering the strategic direction and governance of the foundation, ensuring transparency and long-term community impact.",
+      photo: "/team/abdul-salam-mongam.jpg"
     },
     {
       name: "Faheem Puthusseri",
       role: "President",
-      bio: "Leading executive operations and community welfare projects with a focus on sustainable development and dignity."
+      bio: "Leading executive operations and community welfare projects with a focus on sustainable development and dignity.",
+      photo: "/team/faheem-puthusseri.jpg"
     },
     {
       name: "Ali Kadavathooru",
       role: "Vice President",
-      bio: "Overseeing program execution and field coordination across remote settlements in Wayanad."
+      bio: "Overseeing program execution and field coordination across remote settlements in Wayanad.",
+      photo: "/team/ali-kadavathooru.jpg"
     },
     {
       name: "Siddiq Davari",
       role: "General Secretary",
-      bio: "Managing organizational administration, partnership coordination, and operational integrity across all wings."
+      bio: "Managing organizational administration, partnership coordination, and operational integrity across all wings.",
+      photo: "/team/siddiq-davari.jpg"
     },
     {
       name: "Abdul Latheef",
       role: "Joint Secretary",
-      bio: "Supporting administrative operations, event execution, and community engagement drives."
+      bio: "Supporting administrative operations, event execution, and community engagement drives.",
+      photo: "/team/abdul-latheef.jpg"
     },
     {
       name: "Abid CA",
       role: "Treasurer",
-      bio: "Managing financial allocation, auditing compliance, and direct resource disbursements with complete transparency."
+      bio: "Managing financial allocation, auditing compliance, and direct resource disbursements with complete transparency.",
+      photo: "/team/abid-ca.jpg"
     }
   ] as LeaderDetails[]
 };
 
 export const executiveCommittee: CommitteeMember[] = [
-  { name: "Abdul Gafoor Moulavi", role: "Executive Member (IT Department)" },
-  { name: "Rajkumar", role: "Executive Member (Accounts Department)" },
-  { name: "Samad Puliyampoyil", role: "Executive Member" },
-  { name: "PC. Ibrahim", role: "Executive Member" },
-  { name: "Safarullah Payanthoth", role: "Society Member" },
-  { name: "Hamsa Koya", role: "Society Member" },
-  { name: "Salman Faris", role: "Office Staff" }
+  {
+    name: "Abdul Gafoor Moulavi",
+    role: "Executive Member (IT Department)",
+    photos: [{ src: "/team/abdul-gafoor-moulavi.jpg", name: "Abdul Gafoor Moulavi" }]
+  },
+  {
+    name: "Rajkumar",
+    role: "Executive Member (Accounts Department)",
+    photos: [{ src: "/team/rajkumar.jpg", name: "Rajkumar" }]
+  },
+  {
+    name: "Samad Puliyampoyil",
+    role: "Executive Member",
+    photos: [{ src: "/team/samad-puliyampoyil.jpg", name: "Samad Puliyampoyil" }]
+  },
+  {
+    name: "PC. Ibrahim",
+    role: "Executive Member",
+    photos: [{ src: "/team/pc-ibrahim.jpg", name: "PC. Ibrahim" }]
+  },
+  {
+    name: "Safarullah Payanthoth",
+    role: "Society Member",
+    photos: [{ src: "/team/safarullah-payanthoth.jpg", name: "Safarullah Payanthoth" }]
+  },
+  {
+    name: "Hamsa Koya",
+    role: "Society Member",
+    photos: [{ src: "/team/hamsa-koya.jpg", name: "Hamsa Koya" }]
+  },
+  {
+    name: "Salman Faris",
+    role: "Office Staff",
+    photos: [{ src: "/team/salman-faris.jpg", name: "Salman Faris" }]
+  }
 ];
 
 export const ladiesWingLeadership: CommitteeMember[] = [
-  { name: "Basima Teacher & Haseena Latheef", role: "Executive Members (Education Board)" },
-  { name: "Shafeena Siddiq & Sajna Samad", role: "Executive Members (Noorul Qur’an)" },
-  { name: "Shaharban Abid", role: "Executive Member (Noorul Qur’an & Medical)" },
-  { name: "Ramla Safarullah", role: "Executive Member (Dress Distribution)" },
-  { name: "Subaida Ibrahim", role: "Executive Member (Tour & Recreation)" },
-  { name: "Jelisha Nazimudeen & Shareena Varadoor", role: "Educational Promoters" }
+  {
+    name: "Basima Teacher & Haseena Latheef",
+    role: "Executive Members (Education Board)",
+    photos: [
+      { src: "/team/basima-teacher.jpg", name: "Basima Teacher" },
+      { src: "/team/haseena-latheef.jpg", name: "Haseena Latheef" }
+    ]
+  },
+  {
+    name: "Shafeena Siddiq & Sajna Samad",
+    role: "Executive Members (Noorul Qur’an)",
+    photos: [
+      { src: "/team/shafeena-siddiq.jpg", name: "Shafeena Siddiq" },
+      { src: "/team/sajna-samad.jpg", name: "Sajna Samad" }
+    ]
+  },
+  {
+    name: "Shaharban Abid",
+    role: "Executive Member (Noorul Qur’an & Medical)",
+    photos: [{ src: "/team/shaharban-abid.jpg", name: "Shaharban Abid" }]
+  },
+  {
+    name: "Ramla Safarullah",
+    role: "Executive Member (Dress Distribution)",
+    photos: [{ src: "/team/ramla-safarullah.jpg", name: "Ramla Safarullah" }]
+  },
+  {
+    name: "Subaida Ibrahim",
+    role: "Executive Member (Tour & Recreation)",
+    photos: [{ src: "/team/subaida-ibrahim.jpg", name: "Subaida Ibrahim" }]
+  },
+  {
+    name: "Jelisha Nazimudeen & Shareena Varadoor",
+    role: "Educational Promoters",
+    photos: [
+      { src: "/team/jelisha-nazimudeen.jpg", name: "Jelisha Nazimudeen" },
+      { src: "/team/shareena-varadoor.jpg", name: "Shareena Varadoor" }
+    ]
+  }
 ];
 
 export interface MemorialEntry {
