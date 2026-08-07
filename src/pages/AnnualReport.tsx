@@ -1,16 +1,9 @@
 import React from 'react';
-import { Download, FileText } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
 import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { annualReportAchievements } from '../data/content';
 
 export const AnnualReport: React.FC = () => {
-
-  const documentDownloads = [
-    { title: "Annual Report FY 2024-25", format: "PDF", size: "2.4 MB", date: "April 2025" },
-    { title: "Financial Audit Report FY 2023-24", format: "PDF", size: "1.8 MB", date: "June 2024" },
-    { title: "FCRA Foreign Grants Statement 2024", format: "PDF", size: "850 KB", date: "Jan 2025" }
-  ];
 
   return (
     <>
@@ -27,7 +20,7 @@ export const AnnualReport: React.FC = () => {
             Accountability & Impact
           </h1>
           <p className="font-body text-sm sm:text-base md:text-lg text-brand-beige/85 max-w-2xl mx-auto leading-relaxed">
-            Review our audited financial breakdowns, milestone timelines, and download official reports to verify our field metrics.
+            Review our audited financial breakdowns and milestone timelines, and see the field metrics behind them.
           </p>
         </div>
       </section>
@@ -67,60 +60,6 @@ export const AnnualReport: React.FC = () => {
         </div>
       </section>
 
-      {/* Audited Document Downloads Section */}
-      <section className="py-24 bg-brand-beige">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
-              Library
-            </span>
-            <h2 className="font-heading text-3xl font-bold text-brand-plum">
-              Official Downloads
-            </h2>
-            <p className="font-body text-sm text-brand-plum/80 mt-3">
-              We publish detailed operational audits annually, covering bank expenditures and beneficiary receipts.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {documentDownloads.map((doc, idx) => (
-              <div 
-                key={idx}
-                className="bg-white p-8 rounded-3xl border border-brand-plum/5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-plum/5 text-brand-plum flex items-center justify-center shrink-0">
-                    <FileText className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-lg font-bold text-brand-plum">
-                      {doc.title}
-                    </h3>
-                    <p className="font-body text-[11px] text-brand-plum/50 mt-1">
-                      Released: {doc.date} &bull; Size: {doc.size}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-6">
-                  {/* Download Action Trigger (Mock download) */}
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert(`${doc.title} is not yet available to download. Please contact us to request a copy.`);
-                    }}
-                    className="flex items-center justify-center space-x-2 w-full bg-brand-plum hover:bg-brand-violet text-brand-beige hover:text-white py-3 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 active:scale-95 shadow-sm"
-                  >
-                    <Download className="h-3.5 w-3.5" />
-                    <span>Download {doc.format}</span>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 };

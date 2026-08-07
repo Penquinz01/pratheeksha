@@ -83,9 +83,12 @@ export const About: React.FC = () => {
               className="relative p-2 bg-white rounded-3xl shadow-lg border border-brand-plum/5"
             >
               <ImageSlot
+                src="/home/our-story.jpg"
                 filename="community-house-construction.jpg"
-                alt="Volunteers and masons at work on a community house build"
-                aspectRatio="aspect-[4/3]"
+                alt="Children supported by the foundation on an outing beside the water"
+                /* 4/5 rather than 4/3: the photograph is portrait, and a
+                   landscape crop loses most of it. */
+                aspectRatio="aspect-[4/5]"
               />
             </motion.div>
           </div>

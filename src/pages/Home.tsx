@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, ArrowRight, Home as HomeIcon, ChevronRight } from 'lucide-react';
+import { ArrowRight, Home as HomeIcon, ChevronRight } from 'lucide-react';
 
 import { SEO } from '../components/common/SEO';
 import { ImageSlot } from '../components/common/ImageSlot';
@@ -12,6 +12,7 @@ import {
   sixPillars,
   housingHighlight,
   galleryData,
+  galleryPhoto,
   successStories
 } from '../data/content';
 import { StoryQuote } from '../components/common/StoryQuote';
@@ -60,7 +61,7 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
@@ -70,7 +71,7 @@ export const Home: React.FC = () => {
             <span className="text-xs font-semibold uppercase tracking-wider font-body">
               Pratheeksha Foundation Charitable Society
             </span>
-          </motion.div>
+          </motion.div> */}
 
           <motion.h1
             initial={{ opacity: 0, y: 35 }}
@@ -92,7 +93,7 @@ export const Home: React.FC = () => {
             {heroContent.supportingText}
           </motion.p>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -104,7 +105,7 @@ export const Home: React.FC = () => {
             >
               {heroContent.primaryCtaText}
             </Link>
-          </motion.div>
+          </motion.div> */}
 
         </div>
       </section>
@@ -151,8 +152,9 @@ export const Home: React.FC = () => {
             >
               <div className="absolute inset-0 bg-brand-plum/5 rounded-3xl transform translate-x-3 translate-y-3 pointer-events-none" />
               <ImageSlot
+                src="/home/rooted-in-wayanad.jpg"
                 filename="wayanad-community-engagement.jpg"
-                alt="Field team meeting families in a Wayanad settlement"
+                alt="Beneficiary families seated at a foundation gathering in Wayanad"
                 aspectRatio="aspect-[4/3]"
                 className="shadow-xl"
               />
@@ -269,6 +271,7 @@ export const Home: React.FC = () => {
             >
               <div className="relative p-2 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm shadow-2xl">
                 <ImageSlot
+                  src={housingHighlight.photo}
                   filename={housingHighlight.imageFile}
                   alt={housingHighlight.imageAlt}
                   aspectRatio="aspect-video"
@@ -384,6 +387,9 @@ export const Home: React.FC = () => {
             {galleryData.slice(0, 4).map((g) => (
               <div key={g.id} className="relative group overflow-hidden rounded-2xl shadow-sm">
                 <ImageSlot
+                  /* First photograph of each section, at thumbnail size — the
+                     preview never enlarges, so the full file is never needed. */
+                  src={g.folder ? galleryPhoto(g.folder, 1).thumb : undefined}
                   title={g.title}
                   subtitle={g.description}
                   filename={g.imageFile}

@@ -13,15 +13,10 @@ export interface OrganizationDetails {
     pin: string;
   };
   phone: string;
-  email: string;
+  /** Same number in dialable form, for tel: hrefs. */
+  phoneHref: string;
   website: string;
   mapEmbedUrl: string;
-  socials: {
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    youtube: string;
-  };
   footerQuote: string;
 }
 
@@ -58,6 +53,12 @@ export interface ProgramDetails {
   longDescription: string;
   ctaText: string;
   ctaLink: string;
+  /**
+   * Photograph under /public/programs, named after this programme's own `id` so
+   * a card and its picture pair up without consulting a list. Omit while a
+   * programme is still waiting on one: the card then renders a labelled slot.
+   */
+  photo?: string;
   /** Filename of the real photograph this programme is waiting on. */
   imageFile: string;
   /** Alt text for that photograph. */
@@ -99,23 +100,19 @@ export const organizationDetails: OrganizationDetails = {
   established: "2015",
   location: "Wayanad, Kerala",
   address: {
-    line1: "Pratheeksha Bhavan, Near Civil Station",
-    line2: "Kalpetta, Wayanad District",
+    line1: "Crescent Avenue",
+    line2: "Near St Joseph Convent School",
     city: "Kalpetta",
     district: "Wayanad",
     state: "Kerala",
     pin: "673121"
   },
-  phone: "+91 9496 123 456",
-  email: "info@pratheekshafoundation.org",
+  phone: "77362 78393",
+  // Dialable form of the same number. Kept beside it rather than derived, so a
+  // display format with spaces or brackets can never break the tel: link.
+  phoneHref: "+917736278393",
   website: "www.pratheekshafoundation.org",
   mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125134.61868351762!2d76.0125862661876!3d11.604245642646272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6063e52f55555%3A0x643194a28bc05bf8!2sKalpetta%2C%20Kerala%20673121!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
-  socials: {
-    facebook: "https://facebook.com/pratheeksha.wayanad",
-    instagram: "https://instagram.com/pratheeksha.wayanad",
-    twitter: "https://twitter.com/pratheekshawayanad",
-    youtube: "https://youtube.com/pratheekshawayanad"
-  },
   footerQuote: "Together, we embrace one purpose: transforming lives and uplifting people."
 };
 
@@ -475,8 +472,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Believing that education is the greatest wealth, Pratheeksha allocates **35% of its total annual budget** directly to educational initiatives. We currently support **326 enrolled students** from Kindergarten to Post-Graduation and Civil Service (IAS) coaching. Beyond tuition aid, we distribute school bags, books, and supplies, while organizing career workshops, mentorship camps, and specialized coaching for high school and college students.",
     ctaText: "Sponsor a Child's Education",
     ctaLink: "/partnership#education-promise",
+    photo: "/programs/education.jpg",
     imageFile: "education-kit-distribution.jpg",
-    imageAlt: "Students receiving school kits at the start of the academic year"
+    imageAlt: "Graduating students in caps and gowns receiving their certificates at a foundation event"
   },
   {
     id: "healthcare",
@@ -485,8 +483,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "We extend vital medical aid to families facing debilitating health crises. Our team provides continuous home care, specialized equipment (such as wheelchairs), and monthly financial assistance to **12 bedridden patients**. Furthermore, we cover travel and chemotherapy expenses for cancer patients, support ongoing dialysis for kidney patients, and donate medical equipment (including dialysis machines) to local healthcare centers.",
     ctaText: "Support Healthcare Relief",
     ctaLink: "/partnership#health-relief",
+    photo: "/programs/healthcare.jpg",
     imageFile: "palliative-care-home-visit.jpg",
-    imageAlt: "Volunteer medical team visiting a bedridden patient at home"
+    imageAlt: "A wheelchair and mobility chair handed over to a beneficiary at home"
   },
   {
     id: "food-clothing",
@@ -495,8 +494,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Malnutrition and financial insecurity remain major hurdles for low-income households. We provide monthly grocery kits valued between ₹2,000 and ₹3,000 to **190 categorized families** across Mananthavady, Kalpetta, and Vaduvanchal, empowering beneficiaries to select their own essential items from local partner stores. Additionally, top-tier vulnerable families receive a monthly cash stipend to ensure household stability.",
     ctaText: "Sponsor a Family Ration",
     ctaLink: "/partnership#adopt-family",
+    photo: "/programs/food-clothing.jpg",
     imageFile: "monthly-ration-drive.jpg",
-    imageAlt: "Volunteers loading monthly grocery kits for distribution"
+    imageAlt: "Families queuing outside the distribution centre on ration collection day"
   },
   {
     id: "housing",
@@ -505,8 +505,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "A secure home is the foundation of health and safety. To date, the Safe Home Mission has constructed and handed over **35 storm-resilient concrete houses** to widows, single mothers, and families with disabled members across Wayanad. Over **90 additional housing construction, repair, and maintenance projects** are currently underway, accompanied by complete legal, registration, and basic furnishing support.",
     ctaText: "Partner in Housing Mission",
     ctaLink: "/partnership#safe-home",
+    photo: "/programs/housing.jpg",
     imageFile: "safe-home-key-handover.jpg",
-    imageAlt: "Family receiving keys to their new concrete home"
+    imageAlt: "Family and foundation members inside a newly completed house"
   },
   {
     id: "recreation",
@@ -515,8 +516,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Orphaned children and those living in extreme poverty carry significant emotional weight. Through our Recreation initiative, we build community playground spaces, organize annual summer joy camps, take children on educational excursions, and run art and theater workshops to foster creativity, confidence, and psychological healing.",
     ctaText: "Sponsor Children's Joy",
     ctaLink: "/partnership#children-joy",
+    photo: "/programs/recreation.jpg",
     imageFile: "childrens-joy-camp.jpg",
-    imageAlt: "Children taking part in a games and painting workshop"
+    imageAlt: "Children and volunteers on an excursion, gathered for a group photograph outside a museum"
   },
   {
     id: "training-faith",
@@ -525,8 +527,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "True dignity comes from self-reliance. We organize vocational training courses in tailoring, organic farming, livestock rearing, and computer literacy for single mothers and unemployed youth. Along with skills, we offer emotional counseling and motivational workshops to build internal resilience and faith in a brighter tomorrow.",
     ctaText: "Become a Capacity Builder",
     ctaLink: "/partnership#capacity-builder",
+    photo: "/programs/training-faith.jpg",
     imageFile: "vocational-tailoring-training.jpg",
-    imageAlt: "Women at work during a tailoring training session"
+    imageAlt: "Women gathered for a faith and motivation session"
   },
   {
     id: "rehab",
@@ -535,8 +538,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "In response to the devastating July 2024 Chooralmala landslide, Pratheeksha launched a major rehabilitation initiative. We purchased **3.25 acres of land in Thrikkaipetta** to construct a planned township featuring **33 modern homes** to safely relocate and rebuild the lives of displaced survivor families.",
     ctaText: "Support the Rehab Township",
     ctaLink: "/partnership",
+    photo: "/programs/rehab.jpg",
     imageFile: "rehab-township-thrikkaipetta-site.jpg",
-    imageAlt: "The Thrikkaipetta site where the rehabilitation township is being built"
+    imageAlt: "The township site layout for the Wayanad housing project presented to an audience"
   },
   {
     id: "sahara-bharat",
@@ -545,8 +549,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Operated in collaboration with the Wayanad Muslim Orphanage (WMO), this specialized center provides housing, comprehensive education, vocational training, and medical rehabilitation for over **140 differently-abled residents**.",
     ctaText: "Partner with Sahara Bharat",
     ctaLink: "/partnership",
+    photo: "/programs/sahara-bharat.jpg",
     imageFile: "sahara-bharat-care-centre.jpg",
-    imageAlt: "Staff and residents at the Sahara Bharat care centre"
+    imageAlt: "The Sahara Bharat care and rehabilitation centre building"
   },
   {
     id: "noorul-quran",
@@ -555,8 +560,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "Launched in 2020 to promote spiritual development and moral grounding, Noorul Qur’an conducts structured 45-day courses covering 4 *Juzhs* of the Qur’an across 30 modules. Top-performing students and families are recognized with cash awards and honors during annual community meets.",
     ctaText: "Support Noorul Qur’an",
     ctaLink: "/partnership",
+    photo: "/programs/noorul-quran.jpg",
     imageFile: "noorul-quran-class-session.jpg",
-    imageAlt: "Students attending a Noorul Qur’an class session"
+    imageAlt: "Participants gathered for a group photograph at the 5th Noorul Qur’an Meet"
   },
   {
     id: "tours",
@@ -565,8 +571,9 @@ export const programsList: ProgramDetails[] = [
     longDescription: "To support emotional wellness and child development, Pratheeksha organizes multi-day educational excursions. Highlights include bringing **110 participants** — including students and volunteers — on trips to Wonderla Kochi and sea voyages aboard the Nefertiti ship.",
     ctaText: "Sponsor a Student Tour",
     ctaLink: "/partnership",
+    photo: "/programs/tours.jpg",
     imageFile: "educational-tour-group.jpg",
-    imageAlt: "Students and volunteers on an educational excursion"
+    imageAlt: "Participants seated for a session at a recreational and educational camp"
   }
 ];
 
@@ -614,8 +621,9 @@ export const housingHighlight = {
   description: "A home is the foundation of health, education, and safety. Under our Safe Home Mission, we replace leaky plastic-sheet shacks with storm-resilient concrete houses for widows, single mothers, and families with bedridden patients. Give a family the safety they deserve.",
   ctaText: "Support a Safe Home",
   ctaLink: "/partnership#safe-home",
+  photo: "/home/key-handover.jpg",
   imageFile: "safe-home-key-handover.jpg",
-  imageAlt: "Family receiving keys to their new concrete home"
+  imageAlt: "Family and foundation members at the doorway of a newly completed house on handover day"
 };
 
 export const testimonials: Testimonial[] = [
@@ -727,9 +735,30 @@ export interface GalleryItem {
   title: string;
   /** Caption shown on the card. */
   description: string;
+  /**
+   * Directory under /public/gallery holding this section's photographs, and how
+   * many there are. Files are numbered 01.jpg upward, each with an -sm.jpg
+   * thumbnail beside it: the grid loads the thumbnail, the lightbox the full
+   * size. Omit `count` for a section whose photographs have not arrived yet —
+   * it then renders as a labelled "photograph needed" slot.
+   */
+  folder?: string;
+  count?: number;
   /** Filename of the real photograph this card is waiting on. */
   imageFile: string;
   imageAlt: string;
+}
+
+/** Paths for one numbered photo in a section. */
+export function galleryPhoto(folder: string, n: number) {
+  const id = String(n).padStart(2, '0');
+  return { full: `/gallery/${folder}/${id}.jpg`, thumb: `/gallery/${folder}/${id}-sm.jpg` };
+}
+
+/** Every photo in a section, in order. */
+export function galleryPhotos(item: GalleryItem) {
+  if (!item.folder || !item.count) return [];
+  return Array.from({ length: item.count }, (_, i) => galleryPhoto(item.folder!, i + 1));
 }
 
 // The first four items are the set previewed on the Home page. Their captions
@@ -740,6 +769,8 @@ export const galleryData: GalleryItem[] = [
     category: "housing",
     title: "Safe Home Mission Handover",
     description: "35 secure, concrete homes completed and handed over to vulnerable families in Wayanad.",
+    folder: "safe-home-mission",
+    count: 8,
     imageFile: "safe-home-key-handover.jpg",
     imageAlt: "Family receiving keys to their new concrete home"
   },
@@ -748,6 +779,8 @@ export const galleryData: GalleryItem[] = [
     category: "education",
     title: "Annual Education Kit Distribution",
     description: "Providing academic kits, uniforms, and scholarships to 326 enrolled students.",
+    folder: "education-kit",
+    count: 9,
     imageFile: "education-kit-distribution.jpg",
     imageAlt: "Students receiving school kits at the start of the academic year"
   },
@@ -756,6 +789,8 @@ export const galleryData: GalleryItem[] = [
     category: "healthcare",
     title: "Palliative Care & Bedridden Support",
     description: "Delivering continuous home visits, medical supplies, and wheelchairs to 12 bedridden patients.",
+    folder: "medical",
+    count: 6,
     imageFile: "palliative-care-home-visit.jpg",
     imageAlt: "Volunteer medical team visiting a bedridden patient at home"
   },
@@ -764,6 +799,8 @@ export const galleryData: GalleryItem[] = [
     category: "community",
     title: "Monthly Ration & Stipend Drive",
     description: "Supplying dignity-first monthly groceries and stipends to 190 registered families.",
+    folder: "monthly-ration",
+    count: 10,
     imageFile: "monthly-ration-drive.jpg",
     imageAlt: "Volunteers loading monthly grocery kits for distribution"
   },
@@ -771,7 +808,11 @@ export const galleryData: GalleryItem[] = [
     id: "g5",
     category: "community",
     title: "Family Meet",
-    description: "Beneficiary families, trustees, and volunteers together at the 18th Annual Meet, Destiny Lounge, Kalpetta.",
+    // Caption follows the banner in the photographs themselves: Family Meet
+    // 2024, 26 December 2024, Chandragiri Auditorium, Kalpetta.
+    description: "Family Meet 2024 at Chandragiri Auditorium, Kalpetta — meritorious awards, the Vision 2K27 launch, and the announcement of the 5th Noorul Qur’an Meet.",
+    folder: "family-meet",
+    count: 10,
     imageFile: "family-meet.jpg",
     imageAlt: "Beneficiary families and volunteers gathered at the annual family meet"
   },
@@ -788,6 +829,8 @@ export const galleryData: GalleryItem[] = [
     category: "community",
     title: "Dress Distribution Drive",
     description: "Seasonal clothing distribution reaching 190 registered households, coordinated by the Ladies Wing.",
+    folder: "dress",
+    count: 8,
     imageFile: "dress-distribution-drive.jpg",
     imageAlt: "Families receiving new clothing at a dress distribution drive"
   },
@@ -796,7 +839,49 @@ export const galleryData: GalleryItem[] = [
     category: "education",
     title: "Free Student Tours",
     description: "Free day trips and excursions organised through the year for the children we support, with volunteers accompanying every group.",
+    folder: "tour",
+    count: 14,
     imageFile: "student-excursion-group.jpg",
     imageAlt: "Students and volunteers on an educational excursion"
+  },
+  {
+    id: "g11",
+    category: "education",
+    title: "Educational Camp",
+    description: "Residential learning camps run for the students the foundation supports.",
+    folder: "educational-camp",
+    count: 13,
+    imageFile: "educational-camp.jpg",
+    imageAlt: "Students taking part in an educational camp"
+  },
+  {
+    id: "g12",
+    category: "community",
+    title: "Noorul Qur’an Meet",
+    description: "The 5th Noorul Qur’an Meet, held on 14 December 2025 at Rainbow Auditorium, Vengappally.",
+    folder: "noorul-quran",
+    count: 10,
+    imageFile: "noorul-quran-meet.jpg",
+    imageAlt: "Participants at the 5th Noorul Qur’an Meet"
+  },
+  {
+    id: "g13",
+    category: "housing",
+    title: "Pratheeksha Rehab",
+    description: "Site layout and house designs presented for the township on 3.25 acres at Thrikkaipetta, rehousing families displaced by the Chooralmala landslide.",
+    folder: "rehab",
+    count: 5,
+    imageFile: "pratheeksha-rehab-site.jpg",
+    imageAlt: "Site layout and house designs for the Pratheeksha Rehab township"
+  },
+  {
+    id: "g14",
+    category: "community",
+    title: "Sahara Bharat Foundation",
+    description: "The care and rehabilitation centre run with the Wayanad Muslim Orphanage for over 140 differently-abled residents.",
+    folder: "sahara",
+    count: 10,
+    imageFile: "sahara-bharat-foundation.jpg",
+    imageAlt: "The Sahara Bharat care and rehabilitation centre"
   }
 ];

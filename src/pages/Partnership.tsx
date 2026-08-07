@@ -309,7 +309,7 @@ export const Partnership: React.FC = () => {
               </h3>
             </div>
             <p className="font-body text-sm text-brand-plum/80 leading-relaxed">
-              If you wish to make a direct transfer, you can execute a bank deposit or online NEFT/RTGS transaction. Please email us the transaction screenshot to receive the 80G tax exemption receipt.
+              If you wish to make a direct transfer, you can execute a bank deposit or online NEFT/RTGS transaction. Please send us the transaction screenshot to receive the 80G tax exemption receipt.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-brand-beige/50 p-6 rounded-2xl border border-brand-plum/5 text-xs sm:text-sm font-body text-brand-plum">

@@ -41,16 +41,9 @@ export const SEO: React.FC<SEOProps> = ({
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": organizationDetails.phone,
-      "contactType": "inquiries",
-      "email": organizationDetails.email
+      "telephone": organizationDetails.phoneHref,
+      "contactType": "inquiries"
     },
-    "sameAs": [
-      organizationDetails.socials.facebook,
-      organizationDetails.socials.instagram,
-      organizationDetails.socials.twitter,
-      organizationDetails.socials.youtube
-    ],
     "description": fullTagline
   };
 
@@ -75,7 +68,6 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={siteTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:site" content="@pratheekshawayanad" />
 
       {/* SEO Schema Injection */}
       <script type="application/ld+json">

@@ -85,6 +85,7 @@ export const Programs: React.FC = () => {
                 >
                   <div className="relative p-2 bg-white rounded-3xl shadow-md border border-brand-plum/5 group overflow-hidden">
                     <ImageSlot
+                      src={prog.photo}
                       filename={prog.imageFile}
                       alt={prog.imageAlt}
                       aspectRatio="aspect-[4/3]"

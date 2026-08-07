@@ -33,7 +33,8 @@ export const Navbar: React.FC = () => {
     { name: 'Programs', path: '/programs' },
     { name: 'Six Pillars', path: '/six-pillars' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Partnership', path: '/partnership' },
+    // No 'Partnership' entry: the Partner Us button beside this list already
+    // goes to /partnership, and two links to one page crowded the bar.
     { name: 'Report', path: '/annual-report' },
     { name: 'Contact', path: '/contact' },
   ];

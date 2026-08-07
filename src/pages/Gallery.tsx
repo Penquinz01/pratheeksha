@@ -5,16 +5,41 @@ import { Heart, Grid, Home, BookOpen, HeartPulse, ShieldAlert } from 'lucide-rea
 import { SEO } from '../components/common/SEO';
 import { PlumBackdrop } from '../components/common/PlumBackdrop';
 import { ImageSlot } from '../components/common/ImageSlot';
-import { galleryData } from '../data/content';
+import { galleryData, galleryPhotos, type GalleryItem } from '../data/content';
 
 import 'react-photo-view/dist/react-photo-view.css';
 
 // Real photographs of our own work only. This gallery previously showed stock
 // library pictures, which misrepresented the projects it claimed to document.
-// To publish a photo, drop the file named in galleryData[].imageFile into
-// /public/images/ and map it here; until then the card renders a labelled slot.
-// See ImageSlot for the photography direction.
-const galleryImages: Record<string, string> = {};
+// Photos live in /public/gallery/<folder>/, numbered from 01; a section states
+// its folder and count in galleryData. A section with neither still renders as
+// a labelled "photograph needed" slot. See ImageSlot for the direction.
+
+/** One card per photograph, flattened out of the sections, in section order. */
+interface Card {
+  key: string;
+  item: GalleryItem;
+  thumb?: string;
+  full?: string;
+  /** 1-based position within its own section, for alt text and captions. */
+  index?: number;
+  total?: number;
+}
+
+function toCards(items: GalleryItem[]): Card[] {
+  return items.flatMap((item) => {
+    const photos = galleryPhotos(item);
+    if (!photos.length) return [{ key: item.id, item }];
+    return photos.map((p, i) => ({
+      key: `${item.id}-${i}`,
+      item,
+      thumb: p.thumb,
+      full: p.full,
+      index: i + 1,
+      total: photos.length,
+    }));
+  });
+}
 
 export const Gallery: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -27,9 +52,11 @@ export const Gallery: React.FC = () => {
     { id: 'community', name: 'Community Care', icon: <ShieldAlert className="h-4 w-4" /> }
   ];
 
-  const filteredData = activeFilter === 'all'
-    ? galleryData
-    : galleryData.filter(item => item.category === activeFilter);
+  const filteredData = toCards(
+    activeFilter === 'all'
+      ? galleryData
+      : galleryData.filter(item => item.category === activeFilter)
+  );
 
   return (
     <>
@@ -86,12 +113,12 @@ export const Gallery: React.FC = () => {
               className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             >
               <AnimatePresence mode="popLayout">
-                {filteredData.map((item) => {
-                  const imageSrc = galleryImages[item.id];
+                {filteredData.map((card) => {
+                  const { item } = card;
 
                   // No photograph yet: show a labelled slot, and no lightbox,
                   // since there is nothing to enlarge.
-                  if (!imageSrc) {
+                  if (!card.thumb || !card.full) {
                     return (
                       <motion.div
                         layout
@@ -99,8 +126,8 @@ export const Gallery: React.FC = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.4 }}
-                        key={item.id}
-                        className="relative overflow-hidden rounded-2xl shadow-sm border border-brand-plum/5 bg-white aspect-[4/3]"
+                        key={card.key}
+                        className="relative overflow-hidden rounded-2xl shadow-sm border border-brand-plum/5 bg-white aspect-4/3"
                       >
                         <ImageSlot
                           title={item.title}
@@ -120,19 +147,21 @@ export const Gallery: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.4 }}
-                      key={item.id}
+                      key={card.key}
                       className="group cursor-pointer relative overflow-hidden rounded-2xl shadow-sm border border-brand-plum/5 bg-white aspect-[4/3]"
                     >
-                      <PhotoView src={imageSrc}>
+                      {/* Grid shows the thumbnail; the lightbox loads the full
+                          size, so a 100-card page is not a 20 MB download. */}
+                      <PhotoView src={card.full}>
                         <div className="w-full h-full relative overflow-hidden">
                           {/* Image */}
                           <img
-                            src={imageSrc}
-                            alt={item.title}
+                            src={card.thumb}
+                            alt={`${item.imageAlt} (${card.index} of ${card.total})`}
                             loading="lazy"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />
-                          
+
                           {/* Hover Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-brand-plum/90 via-brand-plum/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                             <span className="text-[10px] text-brand-violet font-bold font-body uppercase tracking-wider mb-1">
