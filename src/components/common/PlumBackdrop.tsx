@@ -21,12 +21,16 @@ import React from 'react';
 interface PlumBackdropProps {
   /** Real photograph to sit behind the wash, e.g. "/images/hero-handover.jpg". */
   photo?: string;
+  /** Alt text is always empty (decorative), but the focal point can move. */
+  photoPosition?: string;
   /** Corner the primary glow sits in. */
   glow?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
   /** Rings add depth on tall sections; drop them on short bands. */
   rings?: boolean;
   /** Texture strength. The default is deliberately faint. */
   intensity?: 'subtle' | 'normal';
+  /** The tiled hands mark. Turn it off where a photograph is the texture. */
+  pattern?: boolean;
 }
 
 const GLOW_POSITION: Record<NonNullable<PlumBackdropProps['glow']>, string> = {
@@ -39,9 +43,11 @@ const GLOW_POSITION: Record<NonNullable<PlumBackdropProps['glow']>, string> = {
 
 export const PlumBackdrop: React.FC<PlumBackdropProps> = ({
   photo,
+  photoPosition = 'center',
   glow = 'top-right',
   rings = true,
   intensity = 'normal',
+  pattern = true,
 }) => {
   const patternOpacity = intensity === 'subtle' ? 'opacity-[0.04]' : 'opacity-[0.07]';
 
@@ -49,20 +55,32 @@ export const PlumBackdrop: React.FC<PlumBackdropProps> = ({
     <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
       {photo && (
         <>
+          {/* brightness-[0.62] before the wash rather than a low opacity: it caps
+              how bright the lightest part of any photograph can get, so a white
+              wall or a blown-out sky cannot lift the background out of contrast
+              range under the headline. */}
           <img
             src={photo}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-25"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.62]"
+            style={{ objectPosition: photoPosition }}
           />
           {/* Plum wash: keeps the photograph as texture, never as content, and
               holds the headline's contrast steady whatever the image is. */}
-          <div className="absolute inset-0 bg-brand-plum/85" />
+          <div className="absolute inset-0 bg-brand-plum/72" />
+          {/* Centre scrim. Raising the flat wash instead would buy the same
+              contrast by washing the photograph out everywhere; this darkens
+              only the middle, where the copy sits, and leaves the edges of the
+              picture readable. */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_50%,rgba(28,16,40,0.55)_0%,rgba(28,16,40,0.28)_55%,transparent_78%)]" />
         </>
       )}
 
-      <div
-        className={`absolute inset-0 bg-[url('/backdrop-hands.svg')] bg-repeat bg-[length:300px_300px] ${patternOpacity}`}
-      />
+      {pattern && (
+        <div
+          className={`absolute inset-0 bg-[url('/backdrop-hands.svg')] bg-repeat bg-[length:300px_300px] ${patternOpacity}`}
+        />
+      )}
 
       <div
         className={`absolute ${GLOW_POSITION[glow]} w-[28rem] h-[28rem] rounded-full bg-brand-violet-light/12 blur-[130px]`}

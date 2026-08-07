@@ -39,15 +39,25 @@ export const Home: React.FC = () => {
 
       {/* 1. Hero Section */}
       <section className="relative min-h-[92vh] flex items-center justify-center bg-gradient-to-br from-brand-plum via-[#3a1a55] to-black text-brand-beige overflow-hidden pt-20">
-        {/* Abstract Background Art */}
+        {/* The photograph is the hero's texture, so the tiled hands mark is off
+            here. Focal point sits below centre: the group stands in the lower
+            half of the frame and a plain centre crop cuts their heads on tall
+            viewports. */}
+        <PlumBackdrop
+          photo="/home/hero-group.jpg"
+          photoPosition="50% 55%"
+          glow="center"
+          rings={false}
+          intensity="subtle"
+          pattern={false}
+        />
+        {/* Abstract Background Art — after the backdrop so the violet bloom
+            still reads over the photograph rather than being painted out. */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-brand-violet filter blur-[100px] animate-pulse duration-8000" />
           <div className="absolute bottom-1/4 right-1/10 w-[450px] h-[450px] rounded-full bg-brand-violet filter blur-[150px]" />
           <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px]" />
         </div>
-        {/* Pass `photo` here once a real photograph of the foundation's work
-            exists, e.g. <PlumBackdrop photo="/images/hero-handover.jpg" ... /> */}
-        <PlumBackdrop glow="center" rings={false} intensity="subtle" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
           <motion.div
@@ -75,7 +85,9 @@ export const Home: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-body text-base sm:text-lg md:text-xl text-brand-beige/85 max-w-2xl leading-relaxed mb-10"
+            /* Full-strength beige, not /85: over a photograph the wash can only
+               hold the background so dark, and 85% measured at 3.49:1. */
+            className="font-body text-base sm:text-lg md:text-xl text-brand-beige max-w-2xl leading-relaxed mb-10"
           >
             {heroContent.supportingText}
           </motion.p>
