@@ -13,7 +13,6 @@ export const Footer: React.FC = () => {
     { name: 'Our Programs', path: '/programs' },
     { name: 'Six Pillars', path: '/six-pillars' },
     { name: 'Photo Gallery', path: '/gallery' },
-    { name: 'Success Stories', path: '/stories' },
   ];
 
   const supportLinks = [

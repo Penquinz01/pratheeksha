@@ -12,10 +12,8 @@ import {
   sixPillars,
   housingHighlight,
   galleryData,
-  galleryPhoto,
-  successStories
+  galleryPhoto
 } from '../data/content';
-import { StoryQuote } from '../components/common/StoryQuote';
 import { PlumBackdrop } from '../components/common/PlumBackdrop';
 
 export const Home: React.FC = () => {
@@ -331,36 +329,6 @@ export const Home: React.FC = () => {
 
 
 
-
-      {/* 7. Voices of Pratheeksha (Preview) — no animation or hover lift here,
-          matching the dignified treatment on the /stories page itself. */}
-      <section className="py-24 bg-brand-warmwhite">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div>
-              <span className="text-brand-violet font-semibold uppercase tracking-wider text-xs font-body block mb-2">
-                Success Stories
-              </span>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-plum">
-                Voices of Pratheeksha
-              </h2>
-            </div>
-            <Link
-              to="/stories"
-              className="flex items-center space-x-2 text-brand-violet hover:text-brand-plum font-semibold uppercase tracking-wider text-sm transition-colors group shrink-0"
-            >
-              <span>Read All Stories</span>
-              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            {successStories.slice(0, 3).map((story) => (
-              <StoryQuote key={story.id} story={story} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* 10. Gallery Preview */}
       <section className="py-24 bg-brand-warmwhite">
