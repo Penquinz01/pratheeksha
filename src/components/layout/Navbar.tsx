@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
     { name: 'Gallery', path: '/gallery' },
     // No 'Partnership' entry: the Partner Us button beside this list already
     // goes to /partnership, and two links to one page crowded the bar.
-    { name: 'Report', path: '/annual-report' },
+    // { name: 'Report', path: '/annual-report' },
     { name: 'Contact', path: '/contact' },
   ];
 
